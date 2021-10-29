@@ -1,0 +1,24 @@
+{
+  "name": "root/app",
+  "description": "Estudando composer",
+  "authors": [
+    {
+      "name": "Heitor",
+      "email": "heitor@gmail.com"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "files": [
+      "src/routers/Router.php",
+      "src/core/Controller.php",
+      "src/database/Connect.php",
+      "src/database/Fetch.php",
+      "src/helpers/Redirect.php",
+      "src/helpers/Constants.php"
+    ],
+    "psr-4": {
+      "Root\\App\\": "src/"
+    }
+  }
+}
