@@ -3,8 +3,9 @@
 require 'bootstrap.php';
 
 try {
-  $data = router();   
 
+  $data = router();   
+  
   if(!isset($data['data'])){
     throw new Exception("Data not found.");
   }
@@ -26,6 +27,7 @@ try {
   $view = $data['view'];
 
   require VIEWS.'index.view.php';
-} catch (Exception $e) {
+} catch (Throwable $e) {
+    \Sentry\captureException($e);  
     echo $e->getMessage();
 }

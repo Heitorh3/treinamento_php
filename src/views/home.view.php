@@ -3,7 +3,7 @@
 <ul>
   <?php foreach ($users as $user) : ?>
       <li>
-          <a href="<?php echo URL_ROOT; ?>/users/<?php echo $user->id;?>/show">
+          <a href="<?php echo URL_ROOT; ?>/user/<?php echo $user->id;?>/show">
               <?php echo $user->name; ?>
           </a>
       </li>
