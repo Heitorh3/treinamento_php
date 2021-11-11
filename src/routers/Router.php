@@ -1,7 +1,7 @@
 <?php
 
 function exactMatchUriInArrayRoutes($uri, $routes){
-  return array_key_exists($uri, $routes) ? $routes[$uri] : [];
+  return (array_key_exists($uri, $routes)) ? [$uri => $routes[$uri]] : [];
 }
 
 function regularExpressionMatchArrayRoutes($uri, $routes){
@@ -39,7 +39,7 @@ function router() {
 
   $routes = require 'Routes.php';
   $requestMethod = $_SERVER['REQUEST_METHOD'];
-
+ 
   $matchUri = exactMatchUriInArrayRoutes($uri, $routes[$requestMethod]);
 
   $params = [];
