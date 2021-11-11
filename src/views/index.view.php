@@ -7,6 +7,9 @@
   <title><?php echo $title; ?></title>
 </head>
 <body>
+  <div id="header">
+    <?php echo require('partial/header.php'); ?>
+  </div>
   <h2>
     <?php
       echo $subtitle;

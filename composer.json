@@ -1,6 +1,6 @@
 {
-  "name": "root/app",
-  "description": "Estudando composer",
+  "name": "php/profissional",
+  "description": "Estudando php com composer",
   "authors": [
     {
       "name": "Heitor",
@@ -20,7 +20,7 @@
       "src/helpers/Constants.php"
     ],
     "psr-4": {
-      "Root\\App\\": "src/"
+      "App\\": "src/"
     }
   }
 }
