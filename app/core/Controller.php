@@ -4,7 +4,7 @@ function loadController($matchedUri, $params) {
   [$controllerName, $methodName] = explode('@',array_values($matchedUri)[0]);
   $controllerWithNamespace = CONTROLLER_PATH.$controllerName;
 
-  if(!class_exists($controllerWithNamespace, false)) {        
+  if(!class_exists($controllerWithNamespace)) {        
     throw new Exception("Controller '$controllerName' not found");
   }
 
