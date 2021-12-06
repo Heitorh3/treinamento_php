@@ -26,7 +26,7 @@ try {
 
   $view = $data['view'];
 
-  require VIEWS.'index.view.php';
+  require VIEWS.$view.'.view.php';
 } catch (Throwable $e) {
     \Sentry\captureException($e);  
     echo $e->getMessage();
