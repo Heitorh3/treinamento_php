@@ -1,5 +1,6 @@
 <?php
 
+namespace app\Controllers;
 class Login
 {
   public function index()

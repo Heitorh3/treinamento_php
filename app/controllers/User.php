@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace app\Controllers;
 
 class User {
     public function index($params)

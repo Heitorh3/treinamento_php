@@ -1,9 +1,9 @@
 <?php
 
 define('ROOT', dirname(__FILE__, 3));
-define('VIEWS', ROOT . 'src/views/');
+define('VIEWS', ROOT . 'app/views/');
 
-define('CONTROLLER_PATH', 'src\\controllers\\');
+define('CONTROLLER_PATH', 'app\\controllers\\');
 define('URL_ROOT', 'http://localhost:9000/');
 
 define('URL_CSS', URL_ROOT . 'public/css/');
