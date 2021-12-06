@@ -24,9 +24,10 @@ try {
   
   extract($data['data']);
 
-  $view = $data['view'];
+  $view = $data['view'].'.view.php';
 
-  require VIEWS.$view.'.view.php';
+  
+  require VIEWS.'index.view.php';
 } catch (Throwable $e) {
     \Sentry\captureException($e);  
     echo $e->getMessage();

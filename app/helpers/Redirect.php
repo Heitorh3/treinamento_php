@@ -1,8 +1,8 @@
 <?php
 
-function redirect($location)
+function redirect($to)
 {
-    header("Location: {$location}");
+    return header('Location: '.$to);
 }
 
 function setMessageAndRedirect($index, $message, $redirectTo)
