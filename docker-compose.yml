@@ -22,22 +22,23 @@ services:
     command: php -S 0.0.0.0:9000 -t public/
     ports:
       - '9000:9000'
-    # depends_on:
-    #   - mysql
-    # environment:
-    #   - MYSQL_USER=root
-    #   - MYSQL_PASS=bwUh3DtN3e32ttya
+    depends_on:
+      - mysql
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASS=bwUh3DtN3e32ttya
 
   # # Data persistence service layer
-  # mysql:
-  #   image: mysql:5.7.20
-  #   volumes:
-  #     - 'db_data:/var/lib/mysql'
-  #     - './mysql/initial_data:/docker-entrypoint-initdb.d'
-  #   container_name: celin_mysql
-  #   ports:
-  #     - '3306:3306'
-  #   environment:
-  #     - MYSQL_ROOT_PASSWORD=bwUh3DtN3e32ttya
-# volumes:
-#   db_data:
+  mysql:
+     image: mysql:5.7.20
+     volumes:
+       - 'db_data:/var/lib/mysql'
+       - './mysql/initial_data:/docker-entrypoint-initdb.d'
+     container_name: server_mysql
+     ports:
+       - '3306:3306'
+     environment:
+       - MYSQL_ROOT_PASSWORD=bwUh3DtN3e32ttya
+
+volumes:
+  db_data:
