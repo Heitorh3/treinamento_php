@@ -7,19 +7,19 @@ try {
   $data = router();   
   
   if(!isset($data['data'])){
-    throw new Exception("Data not found.");
+    throw new Exception('O índice data está faltando');
   }
 
   if(!isset($data['data']['title'])){
-    throw new Exception("Title not found.");
+    throw new Exception('O índice title está faltando');
   }
   
   if(!isset($data['view'])) {
-    throw new Exception("View not found.");
+    throw new Exception('O índice view está faltando');
   }
-  
+
   if(!file_exists(VIEWS.$data['view'].'.view.php')) {
-    throw new Exception("File not exists.");
+    throw new Exception("Essa view {$data['view']} não existe");
   } 
   
   extract($data['data']);

@@ -8,13 +8,7 @@
 </head>
 <body>
   <div id="header">
-    <?php echo require('partial/header.php'); ?>
+    <?php echo require('partials/header.php'); ?>
   </div>
-  <h2>
-    <?php
-      echo $subtitle;
-    ?>
-  </h2>
-
 </body>
 </html>

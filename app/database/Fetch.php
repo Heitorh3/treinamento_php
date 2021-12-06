@@ -6,25 +6,24 @@ function all($table, $fields = '*')
         $connect = connect();
 
         $query = $connect->query("select {$fields} from {$table}");
+        
         return $query->fetchAll();
     } catch (PDOException $e) {
         var_dump($e->getMessage());
     }
 }
 
-function findBy($table, $field, $values, $fields = '*'){
-  try {
-    $connect = connect();
+function findBy($table, $field, $value, $fields = '*')
+{
+    try {
+        $connect = connect();
+        $prepare = $connect->prepare("select {$fields} from {$table} where {$field} = :{$field}");
+        $prepare->execute([
+            $field => $value
+        ]);
 
-    $prepare = $connect->prepare("SELECT {fields} FROM {$table} WHERE {$field} = {$field}");
-    
-    $prepare->execute([
-      'field' => $values
-    ]);
-  
-    return $prepare->fetch();
-
-  } catch (PDOException $e) {
-    echo $e->getMessage();
-  }
+        return $prepare->fetch();
+    } catch (PDOException $e) {
+        var_dump($e->getMessage());
+    }
 }

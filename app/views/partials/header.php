@@ -4,6 +4,4 @@
   <li><a href="/user/create">Cadastro</a></li>
 </ul>
 
-<div class="status_login">
-Bem vindo
-</div>
+<div class="status_login"></div>

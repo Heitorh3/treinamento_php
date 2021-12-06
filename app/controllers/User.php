@@ -27,6 +27,7 @@ class User {
 
     public function show($params)
     {
+
         if(!isset($params['user'])){
             return redirect('/');
          }
