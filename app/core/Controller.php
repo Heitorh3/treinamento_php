@@ -13,6 +13,12 @@ function loadController($matchedUri, $params) {
       throw new Exception("The method '$methodName' not found");
   }
   
-  return $controller->$methodName($params);
+  $controller = $controller->$methodName($params);
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      die();
+  }
+
+  return $controller;
   
 }

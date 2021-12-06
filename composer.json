@@ -17,6 +17,8 @@
       "app/database/Connect.php",
       "app/database/Fetch.php",
       "app/helpers/Redirect.php",
+      "app/helpers/Flash.php",
+      "app/helpers/Sessions.php",
       "app/helpers/Constants.php"
     ],
     "psr-4": {

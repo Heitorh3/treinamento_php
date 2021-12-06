@@ -5,6 +5,7 @@ define('VIEWS', ROOT . '/app/views/');
 
 define('CONTROLLER_PATH', 'app\\controllers\\');
 define('URL_ROOT', 'http://localhost:9000/');
+define('LOGGED', 'LOGGED');
 
 define('URL_CSS', URL_ROOT . 'public/css/');
 define('URL_JS', URL_ROOT . 'public/js/');

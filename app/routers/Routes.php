@@ -9,6 +9,7 @@ return [
     'GET' => [
         '/' => 'Home@index',
         '/user/[0-9]+/show' => 'User@show', 
-        '/login' => 'Login@index'
+        '/login' => 'Login@index',
+        '/logout' => 'Login@destroy'
     ]
 ];  

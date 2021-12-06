@@ -19,5 +19,7 @@ return array(
     '0b86d0bff972f66a76b31ca94442308d' => $baseDir . '/app/database/Connect.php',
     '97073b208c753cc6bfce44872ab311d8' => $baseDir . '/app/database/Fetch.php',
     'e3481ce59556b39c05668354e9ebc4c0' => $baseDir . '/app/helpers/Redirect.php',
+    'f88e8150f159b0467bea5ecfec770844' => $baseDir . '/app/helpers/Flash.php',
+    'aa02e69ea4bc374c474132127c7bb409' => $baseDir . '/app/helpers/Sessions.php',
     'cb015e407691cd0897890a40523f59a0' => $baseDir . '/app/helpers/Constants.php',
 );
