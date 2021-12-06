@@ -38,3 +38,19 @@ Docker compose:
 ```
 docker-compose down --remove-orphans
 ```
+
+## Comando SQL para criar a tabela para
+
+```
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 0 DEFAULT CHARSET = utf8;
+
+
+INSERT INTO users (Name,email) VALUES ('Heitor Neto', 'heitorh3@gmail.com');
+SELECT * FROM users;
+
+```
