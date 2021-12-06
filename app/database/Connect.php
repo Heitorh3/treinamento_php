@@ -1,7 +1,7 @@
 <?php
 
 function connect() {
-  $db = new PDO('mysql:host=localhost;dbname=dbname', 'username', 'password');
+  $db = new PDO('mysql:host=localhost;dbname=proflin', 'root', '@t55pvsudo');
   $db->setAttribute(
     PDO::ATTR_ERRMODE, 
     PDO::ERRMODE_EXCEPTION, 

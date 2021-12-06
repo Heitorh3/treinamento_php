@@ -8,28 +8,30 @@ class ComposerStaticInit2aa8c87b271eece91dd3eaeac38fdd89
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
-        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
-        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
-        '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '9c67151ae59aff4788964ce8eb2a0f43' => __DIR__ . '/..' . '/clue/stream-filter/src/functions_include.php',
+        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '8cff32064859f4559445b89279f3199c' => __DIR__ . '/..' . '/php-http/message/src/filters.php',
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         '09f6b20656683369174dd6fa83b7e5fb' => __DIR__ . '/..' . '/symfony/polyfill-uuid/bootstrap.php',
         'fb4ca2d97fe7ba6af750497425204e70' => __DIR__ . '/..' . '/sentry/sentry/src/functions.php',
-        'ec19dbbb15c57a325d3613d1d78c6bc2' => __DIR__ . '/../..' . '/src/routers/Router.php',
-        'e3cd2badfaba213570865472b0cbd415' => __DIR__ . '/../..' . '/src/core/Controller.php',
-        '33dfbe116998455ccc1ec54324eff8c1' => __DIR__ . '/../..' . '/src/database/Connect.php',
-        '8dce8a5e31650a471fa8960d2efbb695' => __DIR__ . '/../..' . '/src/database/Fetch.php',
-        '2d462bcb7f44fe9dcf0a1a441196172e' => __DIR__ . '/../..' . '/src/helpers/Redirect.php',
-        'e16b61d525ccf6c94af3d82a0f62b05d' => __DIR__ . '/../..' . '/src/helpers/Constants.php',
+        'fa011fd2f6acd13e8b6ea54039198df6' => __DIR__ . '/../..' . '/app/routers/Router.php',
+        'e14ffdbb5bfcd9dedbc7751d61d06609' => __DIR__ . '/../..' . '/app/core/Controller.php',
+        '0b86d0bff972f66a76b31ca94442308d' => __DIR__ . '/../..' . '/app/database/Connect.php',
+        '97073b208c753cc6bfce44872ab311d8' => __DIR__ . '/../..' . '/app/database/Fetch.php',
+        'e3481ce59556b39c05668354e9ebc4c0' => __DIR__ . '/../..' . '/app/helpers/Redirect.php',
+        'cb015e407691cd0897890a40523f59a0' => __DIR__ . '/../..' . '/app/helpers/Constants.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'a' => 
+        array (
+            'app\\' => 4,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Uuid\\' => 22,
             'Symfony\\Polyfill\\Php80\\' => 23,
-            'Symfony\\Polyfill\\Php73\\' => 23,
             'Symfony\\Contracts\\Service\\' => 26,
             'Symfony\\Contracts\\HttpClient\\' => 29,
             'Symfony\\Component\\OptionsResolver\\' => 34,
@@ -65,13 +67,13 @@ class ComposerStaticInit2aa8c87b271eece91dd3eaeac38fdd89
         array (
             'Clue\\StreamFilter\\' => 18,
         ),
-        'A' => 
-        array (
-            'App\\' => 4,
-        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'app\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app',
+        ),
         'Symfony\\Polyfill\\Uuid\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-uuid',
@@ -79,10 +81,6 @@ class ComposerStaticInit2aa8c87b271eece91dd3eaeac38fdd89
         'Symfony\\Polyfill\\Php80\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
-        ),
-        'Symfony\\Polyfill\\Php73\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php73',
         ),
         'Symfony\\Contracts\\Service\\' => 
         array (
@@ -162,16 +160,11 @@ class ComposerStaticInit2aa8c87b271eece91dd3eaeac38fdd89
         array (
             0 => __DIR__ . '/..' . '/clue/stream-filter/src',
         ),
-        'App\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
-        ),
     );
 
     public static $classMap = array (
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',

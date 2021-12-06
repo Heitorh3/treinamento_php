@@ -1,15 +1,15 @@
 <?php
 
-function all($table, $fields = '*'){
-  try {
-    $connect = connect();
+function all($table, $fields = '*')
+{
+    try {
+        $connect = connect();
 
-    $query = $connect->query("SELECT {fields} FROM {$table}");
-    return $query-fetchAll();
-
-  } catch (PDOException $e) {
-    echo $e->getMessage();
-  }
+        $query = $connect->query("select {$fields} from {$table}");
+        return $query->fetchAll();
+    } catch (PDOException $e) {
+        var_dump($e->getMessage());
+    }
 }
 
 function findBy($table, $field, $values, $fields = '*'){
@@ -22,7 +22,7 @@ function findBy($table, $field, $values, $fields = '*'){
       'field' => $values
     ]);
   
-    return $query->fetch();
+    return $prepare->fetch();
 
   } catch (PDOException $e) {
     echo $e->getMessage();
