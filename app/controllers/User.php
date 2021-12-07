@@ -44,7 +44,7 @@ class User {
 
         $validate['password'] = password_hash($validate['password'], PASSWORD_DEFAULT);
 
-        $created = null; //create('users', $validate);
+        $created = create('users', $validate);
 
         if (!$created) {
             setFlash('message', 'Ocorreu um erro ao tentar cadastrar, faça contato com o administrador');

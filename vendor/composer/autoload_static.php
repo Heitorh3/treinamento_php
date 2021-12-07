@@ -19,6 +19,7 @@ class ComposerStaticInit2aa8c87b271eece91dd3eaeac38fdd89
         'e14ffdbb5bfcd9dedbc7751d61d06609' => __DIR__ . '/../..' . '/app/core/Controller.php',
         '0b86d0bff972f66a76b31ca94442308d' => __DIR__ . '/../..' . '/app/database/Connect.php',
         '97073b208c753cc6bfce44872ab311d8' => __DIR__ . '/../..' . '/app/database/Fetch.php',
+        'a528565acf64347b742f42f34484d5e8' => __DIR__ . '/../..' . '/app/database/Create.php',
         'e3481ce59556b39c05668354e9ebc4c0' => __DIR__ . '/../..' . '/app/helpers/Redirect.php',
         'f88e8150f159b0467bea5ecfec770844' => __DIR__ . '/../..' . '/app/helpers/Flash.php',
         'aa02e69ea4bc374c474132127c7bb409' => __DIR__ . '/../..' . '/app/helpers/Sessions.php',

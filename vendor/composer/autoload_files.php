@@ -18,6 +18,7 @@ return array(
     'e14ffdbb5bfcd9dedbc7751d61d06609' => $baseDir . '/app/core/Controller.php',
     '0b86d0bff972f66a76b31ca94442308d' => $baseDir . '/app/database/Connect.php',
     '97073b208c753cc6bfce44872ab311d8' => $baseDir . '/app/database/Fetch.php',
+    'a528565acf64347b742f42f34484d5e8' => $baseDir . '/app/database/Create.php',
     'e3481ce59556b39c05668354e9ebc4c0' => $baseDir . '/app/helpers/Redirect.php',
     'f88e8150f159b0467bea5ecfec770844' => $baseDir . '/app/helpers/Flash.php',
     'aa02e69ea4bc374c474132127c7bb409' => $baseDir . '/app/helpers/Sessions.php',

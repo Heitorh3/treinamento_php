@@ -1,7 +1,9 @@
 <ul id="menu_list">
   <li><a href="/">Home</a></li>
-  <li><a href="/login">Login</a></li>
-  <li><a href="/user/create">Cadastro</a></li>
+  <?php if (!logged()) : ?>
+    <li><a href="/login">Login</a></li>
+    <li><a href="/user/create">Cadastro</a></li>
+  <?php endif; ?>
 </ul>
 
 <div id="status_login">
