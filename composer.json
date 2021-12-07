@@ -19,6 +19,8 @@
       "app/helpers/Redirect.php",
       "app/helpers/Flash.php",
       "app/helpers/Sessions.php",
+      "app/helpers/Validate.php",
+      "app/helpers/Validations.php",
       "app/helpers/Constants.php"
     ],
     "psr-4": {

@@ -8,12 +8,12 @@ function loadController($matchedUri, $params) {
     throw new Exception("Controller '$controllerName' não foi encontrado");
   }
 
-  $controller = new $controllerWithNamespace;
-  if(!method_exists($controller, $methodName)) {
-    throw new Exception("O método {$methodName} não existe no controller {$controller}");
+  $controllerInstance = new $controllerWithNamespace;
+  if(!method_exists($controllerInstance, $methodName)) {
+    throw new Exception("O método {$methodName} não existe no controller {$controllerName}");
   }
   
-  $controller = $controller->$methodName($params);
+  $controller = $controllerInstance->$methodName($params);
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       die();
   }

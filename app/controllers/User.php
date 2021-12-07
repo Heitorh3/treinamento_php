@@ -3,23 +3,11 @@
 namespace app\Controllers;
 
 class User {
-    public function index($params)
-    {
-        $data = [
-            'title' => 'Home',
-            'subtitle' => 'Welcome to the home page',
-            'description' => 'This is the home page'
-        ];
-
-        return ['view'=>'home', 'data'=> $data];
-    }
-
+    
     public function create($params)
     {
         $data = [
-            'title' => 'Create',
-            'subtitle' => 'Welcome to the create page',
-            'description' => 'This is the create page'
+            'title' => 'Cadastro de usuários',
         ];
 
         return ['view'=>'create', 'data'=> $data];        
@@ -40,5 +28,29 @@ class User {
         ];
 
         return ['view'=>'show', 'data'=> $data];
+    }
+
+    public function store()
+    {
+        $validate = validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'maxlen:5|required',
+        ], persistInputs:true, checkCsrf:true);
+
+        if (!$validate) {
+            return redirect('/user/create');
+        }
+
+        $validate['password'] = password_hash($validate['password'], PASSWORD_DEFAULT);
+
+        $created = null; //create('users', $validate);
+
+        if (!$created) {
+            setFlash('message', 'Ocorreu um erro ao tentar cadastrar, faça contato com o administrador');
+            return redirect('/user/create');
+        }
+
+        return redirect('/');
     }
 }

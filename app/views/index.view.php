@@ -8,7 +8,7 @@
 </head>
   <body>
     <div id="header">
-      <?php echo require('partials/header.php'); ?>
+      <?php require('partials/header.php'); ?>
     </div>
     <div id="content">
       <?php require $view; ?>

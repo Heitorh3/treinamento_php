@@ -20,7 +20,7 @@ class Login
     $password = filter_input(INPUT_POST, 'password', FILTER_UNSAFE_RAW);
 
     if(empty($password) || empty($email)){
-      return setMessageAndRedirect('message', 'Usuário ou senha inválidos', '/login');
+     return setMessageAndRedirect('message', 'Usuário ou senha inválidos', '/login');
     }
 
     $user = findBy('users', 'email', $email);
@@ -41,9 +41,9 @@ class Login
   }
 
   public function destroy()
-    {
+  {
         unset($_SESSION[LOGGED]);
 
-        return redirect('/login');
-    }
+        return redirect('/');
+  }
 }

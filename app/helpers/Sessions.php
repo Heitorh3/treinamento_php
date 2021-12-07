@@ -1,4 +1,4 @@
- <?php
+<?php
 
 function user()
 {
@@ -6,7 +6,6 @@ function user()
         return $_SESSION[LOGGED];
     }
 }
-
 
 function logged(): bool
 {
