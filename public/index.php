@@ -25,7 +25,6 @@ try {
   extract($data['data']);
 
   $view = $data['view'].'.view.php';
-
   
   require VIEWS.'index.view.php';
 } catch (Throwable $e) {
