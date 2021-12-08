@@ -1,3 +1,5 @@
+<?php $this->layout('index.view', ['title' => $title]) ?>
+
 <?php if (!logged()) : ?>
     <h2>Login</h2>
     <?php echo getFlash('message'); ?>

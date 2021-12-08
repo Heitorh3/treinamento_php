@@ -22,11 +22,18 @@ try {
     throw new Exception("Essa view {$data['view']} não existe");
   } 
   
-  extract($data['data']);
+  // Create new Plates instance
+  $templates = new League\Plates\Engine(VIEWS);
 
-  $view = $data['view'].'.view.php';
+  // Render a template
+  echo $templates->render($data['view'].'.view', $data['data']);
+
+
+  //extract($data['data']);
+
+  //$view = $data['view'].'.view.php';
   
-  require VIEWS.'index.view.php';
+  //require VIEWS.'index.view.php';
 } catch (Throwable $e) {
     \Sentry\captureException($e);  
     echo $e->getMessage();

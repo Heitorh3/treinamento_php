@@ -50,6 +50,10 @@ class ComposerStaticInit2aa8c87b271eece91dd3eaeac38fdd89
             'Psr\\Http\\Client\\' => 16,
             'Psr\\Container\\' => 14,
         ),
+        'L' => 
+        array (
+            'League\\Plates\\' => 14,
+        ),
         'J' => 
         array (
             'Jean85\\' => 7,
@@ -123,6 +127,10 @@ class ComposerStaticInit2aa8c87b271eece91dd3eaeac38fdd89
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'League\\Plates\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/plates/src',
         ),
         'Jean85\\' => 
         array (

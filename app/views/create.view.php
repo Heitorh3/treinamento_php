@@ -1,3 +1,5 @@
+<?php $this->layout('index.view', ['title' => $title]) ?>
+
 <h2>Cadastrar usuário</h2>
 
 <form method="post" action="/user/store">

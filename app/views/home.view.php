@@ -1,3 +1,4 @@
+<?php $this->layout('index.view', ['title' => $title]) ?>
 <h2>Users</h2>
 
 <ul>
