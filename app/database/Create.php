@@ -3,9 +3,9 @@
 function create(string $table, array $data)
 {
     try {
-        //if (!arrayIsAssociative($data)) {
-          //  throw new Exception("O array tem que ser associativo");
-        //}
+        if (!arrayIsAssociative($data)) {
+           throw new Exception("O array tem que ser associativo");
+        }
 
         $connect = connect();
 

@@ -23,7 +23,8 @@
       "app/helpers/Sessions.php",
       "app/helpers/Validate.php",
       "app/helpers/Validations.php",
-      "app/helpers/Constants.php"
+      "app/helpers/Constants.php",
+      "app/helpers/Helpers.php"
     ],
     "psr-4": {
       "app\\": "app"

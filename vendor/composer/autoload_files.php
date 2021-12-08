@@ -25,4 +25,5 @@ return array(
     'b911a0e9408b9a9bfbfa878df02927bd' => $baseDir . '/app/helpers/Validate.php',
     '348a23882672074b0aa42b8f4d895f1e' => $baseDir . '/app/helpers/Validations.php',
     'cb015e407691cd0897890a40523f59a0' => $baseDir . '/app/helpers/Constants.php',
+    '6bff0eda60aa2c6791f2210480e38bd7' => $baseDir . '/app/helpers/Helpers.php',
 );
