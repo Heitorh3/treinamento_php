@@ -39,6 +39,15 @@ Docker compose:
 docker-compose down --remove-orphans
 ```
 
+## 🚀 Comando para criar o container do banco de dados
+
+Docker run:
+
+```
+ docker run --name=server_mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=bwUh3DtN3e32ttya -e MYSQL_DATABASE=treinamentoPhp -d mariadb:10.0.27
+
+```
+
 ## Comando SQL para criar a tabela para
 
 ```
@@ -53,4 +62,7 @@ CREATE TABLE `users` (
 INSERT INTO users (Name,email) VALUES ('Heitor Neto', 'heitorh3@gmail.com');
 SELECT * FROM users;
 
+ALTER TABLE users ADD COLUNM password VARCHAR(255);
+
+UPDATE users SET password = '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq' WHERE id = 1;
 ```
