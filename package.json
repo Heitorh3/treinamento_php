@@ -1,0 +1,25 @@
+{
+  "name": "treinamento_php",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Heitorh3/treinamento_php.git",
+  "author": "Heitor Carvalho de Almeida Neto <heitorh3@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "NODE_ENV=development webpack --progress --watch",
+    "prod": "NODE_ENV=production webpack --progress --watch"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "babel-loader": "^8.1.0",
+    "eslint": "^7.7.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "@babel/polyfill": "^7.12.1"
+  },
+  "dependencies": {
+    "axios": "^0.24.0"
+  }
+}
