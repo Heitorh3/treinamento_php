@@ -35,7 +35,7 @@ class User {
         $validate = validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'maxlen:5|required',
+            'password' => 'maxlen:15|required',
         ], persistInputs:true, checkCsrf:true);
 
         if (!$validate) {
@@ -52,5 +52,50 @@ class User {
         }
 
         return redirect('/');
+    }
+
+    public function edit($args)
+    {
+
+        if (!logged()) {
+            redirect('/');
+        }
+
+        $validated = validate([
+            'firstName' => 'required',
+            'lastName' => 'required',
+            'email' => 'required|email|uniqueUpdate:id='.$args['user']
+        ], checkCsrf:true);
+    
+        if (!$validated) {
+            return redirect('/user/edit/'.$args['user']);
+        }
+
+        $updated = update('users', $validated, ['id' => $args['user']]);
+
+        if ($updated) {
+            setMessageAndRedirect('updated_success', 'Atualizado com sucesso', '/user/edit/profile');
+            return;
+        }
+        setMessageAndRedirect('updated_error', 'Ocorreu um erro ao atualizar', '/user/edit/profile');
+    }
+
+    public function delete($params){
+        
+        if (!logged()) {
+            redirect('/');
+        }
+
+        if(!isset($params['user'])){
+            return redirect('/');
+         }
+    
+        $deleted = delete('users',['id' => $params['user']]);
+
+        if (!$deleted) {
+            setMessageAndRedirect('error', 'Ocorreu um erro ao tentar deletar, faça contato com o administrador','/');            
+        }
+
+        setMessageAndRedirect('success', 'Deletado com sucesso', '/');
     }
 }

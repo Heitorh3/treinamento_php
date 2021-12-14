@@ -15,10 +15,14 @@ class ComposerStaticInit2aa8c87b271eece91dd3eaeac38fdd89
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         '09f6b20656683369174dd6fa83b7e5fb' => __DIR__ . '/..' . '/symfony/polyfill-uuid/bootstrap.php',
         'fb4ca2d97fe7ba6af750497425204e70' => __DIR__ . '/..' . '/sentry/sentry/src/functions.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         'fa011fd2f6acd13e8b6ea54039198df6' => __DIR__ . '/../..' . '/app/routers/Router.php',
         'e14ffdbb5bfcd9dedbc7751d61d06609' => __DIR__ . '/../..' . '/app/core/Controller.php',
         '0b86d0bff972f66a76b31ca94442308d' => __DIR__ . '/../..' . '/app/database/Connect.php',
         '97073b208c753cc6bfce44872ab311d8' => __DIR__ . '/../..' . '/app/database/Fetch.php',
+        'ebbe8a165e94987b53594cd62b8676fc' => __DIR__ . '/../..' . '/app/database/Delete.php',
+        'b01991aff5b66f17e7574b7a8d3cff52' => __DIR__ . '/../..' . '/app/database/Update.php',
         'a528565acf64347b742f42f34484d5e8' => __DIR__ . '/../..' . '/app/database/Create.php',
         'e3481ce59556b39c05668354e9ebc4c0' => __DIR__ . '/../..' . '/app/helpers/Redirect.php',
         'f88e8150f159b0467bea5ecfec770844' => __DIR__ . '/../..' . '/app/helpers/Flash.php',
@@ -38,8 +42,10 @@ class ComposerStaticInit2aa8c87b271eece91dd3eaeac38fdd89
         array (
             'Symfony\\Polyfill\\Uuid\\' => 22,
             'Symfony\\Polyfill\\Php80\\' => 23,
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Contracts\\Service\\' => 26,
             'Symfony\\Contracts\\HttpClient\\' => 29,
+            'Symfony\\Component\\VarDumper\\' => 28,
             'Symfony\\Component\\OptionsResolver\\' => 34,
             'Symfony\\Component\\HttpClient\\' => 29,
             'Sentry\\' => 7,
@@ -92,6 +98,10 @@ class ComposerStaticInit2aa8c87b271eece91dd3eaeac38fdd89
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
         ),
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
         'Symfony\\Contracts\\Service\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/service-contracts',
@@ -99,6 +109,10 @@ class ComposerStaticInit2aa8c87b271eece91dd3eaeac38fdd89
         'Symfony\\Contracts\\HttpClient\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/http-client-contracts',
+        ),
+        'Symfony\\Component\\VarDumper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/var-dumper',
         ),
         'Symfony\\Component\\OptionsResolver\\' => 
         array (

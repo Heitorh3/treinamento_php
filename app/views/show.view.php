@@ -3,6 +3,11 @@
 
 <ul>
       <li>
+          <a href="<?php echo URL_ROOT; ?>user/<?php echo $user->id;?>/delete">
+              <?php echo $user->id; ?>
+          </a>
+      </li>
+      <li>
           <a href="<?php echo URL_ROOT; ?>user/<?php echo $user->id;?>/show">
               <?php echo $user->name; ?>
           </a>
