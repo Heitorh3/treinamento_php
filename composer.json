@@ -22,6 +22,7 @@
       "app/database/Create.php",
       "app/helpers/Redirect.php",
       "app/helpers/Flash.php",
+      "app/helpers/Old.php",
       "app/helpers/Sessions.php",
       "app/helpers/Validate.php",
       "app/helpers/Validations.php",

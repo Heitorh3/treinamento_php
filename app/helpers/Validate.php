@@ -15,7 +15,7 @@ function validate(array $validations, bool $persistInputs = false, bool $checkCs
     }
 
     if ($persistInputs) {
-        //setOld();
+        setOld();
     }
 
     if (in_array(false, $result, true)) {

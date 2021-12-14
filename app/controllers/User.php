@@ -62,10 +62,9 @@ class User {
         }
 
         $validated = validate([
-            'firstName' => 'required',
-            'lastName' => 'required',
+            'Name' => 'required',           
             'email' => 'required|email|uniqueUpdate:id='.$args['user']
-        ], checkCsrf:true);
+        ],persistInputs:true, checkCsrf:true);
     
         if (!$validated) {
             return redirect('/user/edit/'.$args['user']);

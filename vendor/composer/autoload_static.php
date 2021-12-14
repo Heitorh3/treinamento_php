@@ -26,6 +26,7 @@ class ComposerStaticInit2aa8c87b271eece91dd3eaeac38fdd89
         'a528565acf64347b742f42f34484d5e8' => __DIR__ . '/../..' . '/app/database/Create.php',
         'e3481ce59556b39c05668354e9ebc4c0' => __DIR__ . '/../..' . '/app/helpers/Redirect.php',
         'f88e8150f159b0467bea5ecfec770844' => __DIR__ . '/../..' . '/app/helpers/Flash.php',
+        'c64c0f5c95df6389cd3223d60eaae060' => __DIR__ . '/../..' . '/app/helpers/Old.php',
         'aa02e69ea4bc374c474132127c7bb409' => __DIR__ . '/../..' . '/app/helpers/Sessions.php',
         'b911a0e9408b9a9bfbfa878df02927bd' => __DIR__ . '/../..' . '/app/helpers/Validate.php',
         '348a23882672074b0aa42b8f4d895f1e' => __DIR__ . '/../..' . '/app/helpers/Validations.php',
