@@ -2,7 +2,10 @@
 
 <h2>Cadastrar usuário</h2>
 
+
 <form method="post" action="/user/store">
+    <?php echo getCsrf(); ?>
+    
     <label for="name">Nome:</label>
     <input type="text" name="name" id="name"  value="<?php echo getOld('name'); ?>"/>
     <?php echo getFlash('name'); ?>

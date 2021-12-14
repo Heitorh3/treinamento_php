@@ -3,7 +3,7 @@
 
 <ul>
       <li>
-          <a href="<?php echo URL_ROOT; ?>user/<?php echo $user->id;?>/delete">
+          <a href="<?php echo URL_ROOT; ?>user/<?php echo $user->id;?>/delete" class="delete-button">
               <?php echo $user->id; ?>
           </a>
       </li>

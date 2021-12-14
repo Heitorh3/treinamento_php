@@ -10,7 +10,7 @@ function getCsrf()
 
 function checkCsrf()
 {
-    $csrf = filter_input(INPUT_POST, 'csrf', FILTER_SANITIZE_STRING);
+    $csrf = filter_input(INPUT_POST, 'csrf', FILTER_UNSAFE_RAW);
 
     if (!$csrf) {
         throw new Exception('Token inválido');
