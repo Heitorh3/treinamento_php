@@ -9,6 +9,7 @@ return [
     ],
     'GET' => [
         '/' => 'Home@index',
+        '/api/users' => 'Users@index',
         '/user/[0-9]+/show' => 'User@show', 
         '/user/create' => 'User@create', 
         '/user/[0-9]+/delete' => 'User@delete', 

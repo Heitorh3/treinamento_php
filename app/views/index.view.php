@@ -7,10 +7,15 @@
   <title><?= $this->e($title)?></title>
 </head>
   <body>
+   
     <div id="header">
       <?=$this->insert('partials/header')?>
     </div>
+   
     <div id="content">
       <?=$this->section('content')?>
+    </div>
+   
+    <?=$this->section('scripts')?>
   </body>
 </html>
