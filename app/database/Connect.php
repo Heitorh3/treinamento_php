@@ -7,6 +7,6 @@ function connect() {
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
 ];
 
-  return new PDO('mysql:host=server_mysql;dbname=treinamentoPhp', 'root', 'bwUh3DtN3e32ttya', $options);
+  return new PDO("mysql:host={$_ENV['DATABASE_HOST']};dbname={$_ENV['DATABASE_NAME']}", "{$_ENV['DATABASE_USER']}", "{$_ENV['DATABASE_PASSWORD']}", $options);
 }
 
