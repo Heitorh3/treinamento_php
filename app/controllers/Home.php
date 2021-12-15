@@ -8,7 +8,7 @@ class Home {
         // $users = all('users');
         
         read('users');
-        // where('id', '>', 1);
+        where('Name', 'Heitor Neto');
         // orWhere('email', '=', 'heitorh3@hotmail.com', 'and');
         $users = execute();
 

@@ -52,23 +52,55 @@ function paginate(string|int $perPage = 10){
     $query['paginate'] = true;
 }
 
-function where(string $field, string $operator, string|int $value)
+function where()
 {
 
     global $query;
+
+    $args = func_get_args();
+    $numArgs = func_num_args();
 
     if(!isset($query['read'])){
         throw new Exception('Antes de chamar o where chame o read');
     }
 
-    if(func_num_args() != 3){
-        throw new Exception('O where precisa de 3 parâmetros');
+    if($numArgs < 2 || $numArgs > 3){
+        throw new Exception('O where precisa de 2 ou 3 parâmetros');
     }
-    
+
+    if($numArgs === 2 ){
+        $field = $args[0];
+        $operator = '=';
+        $value = $args[1];
+    }
+
+    if($numArgs === 3 ){
+        $field = $args[0];
+        $operator = $args[1];
+        $value = $args[2];
+    }
     $query['where'] = true;
     $query['execute'] = array_merge($query['execute'], [$field => $value]);
     $query['sql'] = "{$query['sql']} WHERE {$field} {$operator} :{$field}";
 }
+
+// function where(string $field, string $operator, string|int $value)
+// {
+
+//     global $query;
+
+//     if(!isset($query['read'])){
+//         throw new Exception('Antes de chamar o where chame o read');
+//     }
+
+//     if(func_num_args() != 3){
+//         throw new Exception('O where precisa de 3 parâmetros');
+//     }
+    
+//     $query['where'] = true;
+//     $query['execute'] = array_merge($query['execute'], [$field => $value]);
+//     $query['sql'] = "{$query['sql']} WHERE {$field} {$operator} :{$field}";
+// }
 
 function orWhere(string $field, string $operator, string|int $value, string $typeWhere = 'or')
 {
