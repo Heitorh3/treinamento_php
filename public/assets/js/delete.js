@@ -1,7 +1,5 @@
 const Swal = require('sweetalert2');
 
-
-
 function deleteButtonClick() {
   const deleteButton = document.querySelectorAll('.delete-button');
 
@@ -25,7 +23,5 @@ function deleteButtonClick() {
     })
   });
 }
-
-
 
 export default deleteButtonClick;

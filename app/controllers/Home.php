@@ -5,7 +5,13 @@ namespace app\Controllers;
 class Home {
     public function index($params)
     {
-        $users = all('users');
+        // $users = all('users');
+        
+        read('users');
+        // where('id', '>', 1);
+        // orWhere('email', '=', 'heitorh3@hotmail.com', 'and');
+        $users = execute();
+
         $data = [
             'title' => 'Home',
             'subtitle' => 'Welcome to the home page',
