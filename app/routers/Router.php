@@ -51,6 +51,10 @@ function router() {
     $params = formatParams($uri, $params);
   } 
 
+  if ($_ENV['MAINTENANCE'] === 'true') {
+    $matchUri = ['/maintenance' => 'Maintenance@index'];
+  }
+
   if(!empty($matchUri)){
     return loadController($matchUri, $params);
   }
