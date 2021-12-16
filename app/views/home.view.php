@@ -5,6 +5,12 @@
 <?php echo getFlash('success', 'background-color:green;color:white'); ?>
 <?php echo getFlash('error', 'background-color:red;color:white'); ?>
 
+<form method="get" action="/">
+    <input type="text" name="search" placeholder="Digite o nome que deseja buscar...">
+
+    <button type="submit">Buscar</button>
+</form>
+
 <ul>
   <?php foreach ($users as $user) : ?>
       <li>

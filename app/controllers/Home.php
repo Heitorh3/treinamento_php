@@ -11,11 +11,11 @@ class Home {
         read('users');
         
         if($search){
-            search(['name' => $search, 'email' => $search]);
+            search(['Name' => $search]);
         }
 
         $users = execute();
-
+// ddd($users);
         $data = [
             'title' => 'Home',
             'subtitle' => 'Welcome to the home page',
