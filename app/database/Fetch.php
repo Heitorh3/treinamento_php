@@ -1,4 +1,7 @@
 <?php
+
+use Doctrine\Inflector\InflectorFactory;
+
 //query builder
 
 $query = [];
@@ -7,8 +10,12 @@ function read(string $table, string $fields = '*')
 {
 
     global $query;
+
+    $query = [];
+
     $query['execute'] = [];
     $query['read'] = true;
+    $query['table'] = $table;
     $query['sql'] = "SELECT {$fields} FROM {$table}";
 
 }
@@ -223,6 +230,40 @@ function search(array $search){
 //     $query['execute'] = array_merge($query['execute'], [$field => $value]);
 //     $query['sql'] = "{$query['sql']} {$typeWhere} {$field} {$operator} :{$field}";
 // }
+
+function fieldFK(string $table, string $field)
+{
+    $inflector = InflectorFactory::create()->build();
+    $tableToSingular = $inflector->singularize($table);
+
+    return $tableToSingular.ucfirst($field);
+}
+
+function tableJoin(string $table, string $fieldFK, string $typeJoin = 'inner')
+{
+    global $query;
+
+    if (isset($query['where'])) {
+        throw new Exception("Nao posso colocar o where antes do join");
+    }
+
+    $fkToJoin = fieldFK($query['table'], $fieldFK);
+
+    $query['sql'] = "{$query['sql']} {$typeJoin} join {$table} on {$table}.{$fkToJoin} = {$query['table']}.{$fieldFK}";
+}
+
+function tableJoinWithFK(string $table, string $fieldFK, string $typeJoin = 'inner')
+{
+    global $query;
+
+    if (isset($query['where'])) {
+        throw new Exception("Não pode colocar o where antes do join");
+    }
+
+    $fkToJoin = fieldFK($table, $fieldFK);
+
+    $query['sql'] = "{$query['sql']} {$typeJoin} join {$table} on {$table}.{$fieldFK} = {$query['table']}.{$fkToJoin}";
+}
 
 function execute(bool $isFetchAll = true, bool $isRowCount = false)
 {

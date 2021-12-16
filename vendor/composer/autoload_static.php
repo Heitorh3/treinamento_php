@@ -88,6 +88,7 @@ class ComposerStaticInit2aa8c87b271eece91dd3eaeac38fdd89
         'D' => 
         array (
             'Dotenv\\' => 7,
+            'Doctrine\\Inflector\\' => 19,
         ),
         'C' => 
         array (
@@ -209,6 +210,10 @@ class ComposerStaticInit2aa8c87b271eece91dd3eaeac38fdd89
         'Dotenv\\' => 
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
+        ),
+        'Doctrine\\Inflector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector',
         ),
         'Clue\\StreamFilter\\' => 
         array (
