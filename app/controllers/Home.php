@@ -8,11 +8,11 @@ class Home {
         // $users = all('users');
         
         read('users');
-        where('Name', 'Heitor Neto');
+        // where('Name', 'Heitor Neto');
         //orWhere('email', 'heitorh3@hotmail.com'); 
         //orWhere('email', '<', 'heitorh3@hotmail.com');
         // orWhere('email', '<', 'heitorh3@hotmail.com', 'and');
-        orWhere('email','heitorh3@gmail.com', 'and');
+        // orWhere('email','heitorh3@gmail.com', 'and');
         $users = execute();
 
         $data = [

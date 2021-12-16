@@ -52,6 +52,11 @@ function paginate(string|int $perPage = 10){
     $query['paginate'] = true;
 }
 
+// where('Name', 'Heitor Neto');
+//orWhere('email', 'heitorh3@hotmail.com'); 
+//orWhere('email', '<', 'heitorh3@hotmail.com');
+// orWhere('email', '<', 'heitorh3@hotmail.com', 'and');
+// orWhere('email','heitorh3@gmail.com', 'and');
 function where()
 {
 
@@ -83,6 +88,8 @@ function where()
     $query['execute'] = array_merge($query['execute'], [$field => $value]);
     $query['sql'] = "{$query['sql']} WHERE {$field} {$operator} :{$field}";
 }
+
+// where antigo
 
 // function where(string $field, string $operator, string|int $value)
 // {
@@ -191,17 +198,39 @@ function whereIn(string $field, array $data)
 //     $query['sql'] = "{$query['sql']} {$typeWhere} {$field} {$operator} :{$field}";
 // }
 
-function execute()
+function execute(bool $isFetchAll = true, bool $isRowCount = false)
 {
     global $query;
 
-    $connect = connect();
+    try{
 
-    $prepare = $connect->prepare($query['sql']);
-    $prepare->execute($query['execute'] ?? []);
+        $connect = connect();
+        
+        if (!isset($query['sql'])) {
+            throw new Exception("Precisa ter o sql para executar a query");
+        }
 
-    // dd($query);
-    return $prepare->fetchAll();
+        $prepare = $connect->prepare($query['sql']);
+        $prepare->execute($query['execute'] ?? []);
+        
+        // ddd($query);
+        
+        if($isRowCount){
+            return $prepare->rowCount();
+        }
+
+        return $isFetchAll ? $prepare->fetchAll() : $prepare->fetch();
+
+    } catch (Exception $e) {
+        $error = [
+            'file' => $e->getFile(),
+            'line' => $e->getLine(),
+            'message' => $e->getMessage(),
+            'sql' => $query['sql'],
+        ];
+
+        ddd($error);
+    }    
 }
 
 function all($table, $fields = '*')
