@@ -1,19 +1,19 @@
 <?php $this->layout('index.view', ['title' => $title]) ?>
 
-<h2>Editar usuário {<?php echo $user->username ?>}</h2>;
+<h2>Editar usuário - <?php echo $user->name ?></h2>
 
-<form method="post" action="/user/store">
+<form method="post" action="/user/<?php echo $user->id ?>/update">
+    <?php echo getCsrf(); ?>
+
     <label for="name">Nome:</label>
-    <input type="text" name="name" id="name" />
+    <input type="text" name="name" id="name" value="<?php echo $user->name ?>"/>
     <?php echo getFlash('name'); ?>
     <br />
+    
     <label for="email">Email:</label>
-    <input type="text" name="email" id="email" />
+    <input type="text" name="email" id="email" value="<?php echo $user->email ?>"/>
     <?php echo getFlash('email'); ?>
     <br />
-    <label for="password">Senha:</label>
-    <input type="password" name="password" id="password" />
-    <?php echo getFlash('password'); ?>
-    <br />
-    <input type="submit" value="Cadastrar" />
+  
+    <input type="submit" value="Atualizar" />
 </form>

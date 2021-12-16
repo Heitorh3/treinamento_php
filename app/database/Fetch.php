@@ -280,8 +280,6 @@ function execute(bool $isFetchAll = true, bool $isRowCount = false)
         $prepare = $connect->prepare($query['sql']);
         $prepare->execute($query['execute'] ?? []);
         
-        // ddd($query);
-        
         if($isRowCount){
             return $prepare->rowCount();
         }

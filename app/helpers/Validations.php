@@ -31,10 +31,10 @@ function uniqueUpdate($field, $param)
     if (str_contains($param, '=')) {
         list($fieldToCompare, $value) = explode('=', $param);
 
-        //read('users');
-        //where($field, $email);
-        //orWhere($fieldToCompare, '!=', $value, 'and');
-        $userFound =null; // execute(isFetchAll:false);
+        read('users');
+        where($field, $email);
+        orWhere($fieldToCompare, '!=', $value, 'and');
+        $userFound = execute(isFetchAll:false);
         if ($userFound) {
             setFlash($field, "Esse valor já está cadastrado");
             return false;

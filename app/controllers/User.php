@@ -4,7 +4,7 @@ namespace app\Controllers;
 
 class User {
     
-    public function create($params)
+    public function create()
     {
         $data = [
             'title' => 'Cadastro de usuários',
@@ -54,20 +54,42 @@ class User {
         return redirect('/');
     }
 
-    public function edit($args)
+    public function edit()
     {
 
         if (!logged()) {
             redirect('/');
         }
 
+        // read('users', 'users.id,firstName,lastName,email,password,path');
+        // tableJoin('photos', 'id', 'left');
+        // where('users.id', user()->id); 
+
+        read('users');
+        where('id', user()->id);
+        $user = execute(isFetchAll:false);
+
+        return [
+            'view'  => 'edit',
+            'data' => ['title' => 'Edit','user' => $user]
+        ];
+
+        
+    }
+
+    public function update($args){
+
+        if (!isset($args['user'])) {
+            return redirect('/');
+        }
+
         $validated = validate([
-            'Name' => 'required',           
+            'name' => 'required',           
             'email' => 'required|email|uniqueUpdate:id='.$args['user']
         ],persistInputs:true, checkCsrf:true);
     
         if (!$validated) {
-            return redirect('/user/edit/'.$args['user']);
+            return redirect('/user/edit/profile');
         }
 
         $updated = update('users', $validated, ['id' => $args['user']]);
