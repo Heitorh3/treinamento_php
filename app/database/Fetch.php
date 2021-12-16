@@ -175,6 +175,32 @@ function whereIn(string $field, array $data)
     $query['sql'] = "{$query['sql']} where {$field} in (".'\''.implode('\',\'', $data).'\''.')';
 }
 
+function search(array $search){
+
+    global $query;
+
+    if (isset($query['where'])) {
+        throw new Exception('Não pode chamar o where na busca');
+    }
+
+    if(!arrayIsAssociative($search)){
+        throw new Exception('Na busca o array deve ser associativo');
+    }
+
+    $sql = "{$query['sql']} WHERE ";
+    
+    $execute = [];
+    foreach ($search as $field => $searched) {
+        $sql.= "{$field} like :{$field} or ";
+        $execute[$field] = "%{$searched}%";
+    }
+
+    $sql = rtrim($sql, ' or ');
+
+    $query['sql'] = $sql;
+    $query['execute'] = $execute;
+}
+
 // orWhere('email', '=', 'heitorh3@hotmail.com', 'and');  forma de invocar esse método
 // function orWhere(string $field, string $operator, string|int $value, string $typeWhere = 'or')
 // {

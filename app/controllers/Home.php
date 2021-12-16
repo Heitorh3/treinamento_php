@@ -5,14 +5,15 @@ namespace app\Controllers;
 class Home {
     public function index($params)
     {
-        // $users = all('users');
         
+        $search = filter_input(INPUT_GET, 'search', FILTER_UNSAFE_RAW);
+
         read('users');
-        // where('Name', 'Heitor Neto');
-        //orWhere('email', 'heitorh3@hotmail.com'); 
-        //orWhere('email', '<', 'heitorh3@hotmail.com');
-        // orWhere('email', '<', 'heitorh3@hotmail.com', 'and');
-        // orWhere('email','heitorh3@gmail.com', 'and');
+        
+        if($search){
+            search(['name' => $search, 'email' => $search]);
+        }
+
         $users = execute();
 
         $data = [
