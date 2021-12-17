@@ -14,6 +14,8 @@ class Home {
             search(['Name' => $search]);
         }
 
+        paginate(5);
+
         $users = execute();
 // ddd($users);
         $data = [

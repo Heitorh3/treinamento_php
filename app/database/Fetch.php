@@ -55,13 +55,23 @@ function paginate(string|int $perPage = 10){
         throw new Exception('A paginação não pode ser chamada com o limit');
     }
 
+    $rowCount = execute(isRowCount:true);
+
+    $page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT);
+
+    $page = $page ?? 1;
+
+    $query['currentPage'] = (int)$page;
+    $query['pageCoumt'] = (int)ceil($rowCount / $perPage);
+    $offset = (int)($page - 1) * $perPage;
 
     $query['paginate'] = true;
+    $query['sql'] = "{$query['sql']} limit {$perPage} offset {$offset}";
 }
 
 // where('Name', 'Heitor Neto');
-//orWhere('email', 'heitorh3@hotmail.com'); 
-//orWhere('email', '<', 'heitorh3@hotmail.com');
+// orWhere('email', 'heitorh3@hotmail.com'); 
+// orWhere('email', '<', 'heitorh3@hotmail.com');
 // orWhere('email', '<', 'heitorh3@hotmail.com', 'and');
 // orWhere('email','heitorh3@gmail.com', 'and');
 function where()
@@ -69,6 +79,10 @@ function where()
 
     global $query;
 
+    if (isset($query['where'])) {
+        throw new Exception("Verifique quantos wheres esta sendo chamado na criação da sua query");
+    }
+    
     $args = func_get_args();
     $numArgs = func_num_args();
 
