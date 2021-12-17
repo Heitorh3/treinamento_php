@@ -22,6 +22,7 @@ class Home {
             'title' => 'Home',
             'subtitle' => 'Welcome to the home page',
             'description' => 'This is the home page',
+            'links' => render(),
             'users' => $users
         ];
 
