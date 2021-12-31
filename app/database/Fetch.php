@@ -338,10 +338,17 @@ function execute(bool $isFetchAll = true, bool $isRowCount = false)
         $prepare->execute($query['execute'] ?? []);
         
         if($isRowCount){
-            return $prepare->rowCount();
+            $query['count'] = $prepare->rowCount();
+            return $query['count'];
         }
 
-        return $isFetchAll ? $prepare->fetchAll() : $prepare->fetch();
+        if($isFetchAll){
+            return (object) [
+                'rows' => $prepare->fetchAll()??$prepare->rowCount(),
+                'count' => $query['count'],
+            ];            
+        }
+        return $prepare->fetch();
 
     } catch (Exception $e) {
         $error = [

@@ -12,7 +12,7 @@
 </form>
 
 <ul>
-  <?php foreach ($users as $user) : ?>
+  <?php foreach ($users->rows as $user) : ?>
       <li>
           <a href="<?php echo URL_ROOT; ?>user/<?php echo $user->id;?>/show">
               <?php echo $user->name; ?>
