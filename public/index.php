@@ -4,7 +4,6 @@ require 'bootstrap.php';
 
   try {
 
-<<<<<<< HEAD
   $data = router();   
   
   if(isAjax()) {
@@ -14,13 +13,6 @@ require 'bootstrap.php';
   if(!isset($data['data'])){
     throw new Exception('O índice data está faltando');
   }
-=======
-    $data = router();   
-    
-    if(!isset($data['data'])){
-      throw new Exception('O índice data está ausente!');
-    }
->>>>>>> aa3b0e7 (Ajustando as mensagens de alertas e erros)
 
     if(!isset($data['data']['title'])){
       throw new Exception('O índice title está ausente!');
