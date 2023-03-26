@@ -17,23 +17,17 @@ Eu sou desenvolvedor **sua área**.
 
 Para rodar o projeto, siga estas etapas:
 
-Composer:
-
 ```
 docker run --rm --interactive --tty --volume $PWD:/app composer dump-autoload
 ```
 
 ## 🚀 Comando para iniciar a aplicação com docker-compose
 
-Docker compose:
-
 ```
 docker-compose up -d --build --force-recreate
 ```
 
 ## 🚀 Comando para parar a aplicação com docker-compose
-
-Docker compose:
 
 ```
 docker-compose down --remove-orphans

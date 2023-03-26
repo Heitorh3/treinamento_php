@@ -9,7 +9,7 @@ function create(string $table, array $data)
         }
 
         if (!arrayIsAssociative($data)) {
-           throw new Exception("O array tem que ser associativo");
+           throw new Exception("O array tem que ser associativo no create");
         }
 
         $connect = connect();

@@ -2,8 +2,9 @@
 
 require 'bootstrap.php';
 
-try {
+  try {
 
+<<<<<<< HEAD
   $data = router();   
   
   if(isAjax()) {
@@ -13,32 +14,39 @@ try {
   if(!isset($data['data'])){
     throw new Exception('O índice data está faltando');
   }
+=======
+    $data = router();   
+    
+    if(!isset($data['data'])){
+      throw new Exception('O índice data está ausente!');
+    }
+>>>>>>> aa3b0e7 (Ajustando as mensagens de alertas e erros)
 
-  if(!isset($data['data']['title'])){
-    throw new Exception('O índice title está faltando');
-  }
-  
-  if(!isset($data['view'])) {
-    throw new Exception('O índice view está faltando');
-  }
+    if(!isset($data['data']['title'])){
+      throw new Exception('O índice title está ausente!');
+    }
+    
+    if(!isset($data['view'])) {
+      throw new Exception('O índice view está ausente!');
+    }
 
-  if(!file_exists(VIEWS.$data['view'].'.view.php')) {
-    throw new Exception("Essa view {$data['view']} não existe");
-  } 
-  
-  // Create new Plates instance
-  $templates = new League\Plates\Engine(VIEWS);
+    if(!file_exists(VIEWS.$data['view'].'.view.php')) {
+      throw new Exception("Essa view {$data['view']} não existe");
+    } 
+    
+    // Create new Plates instance
+    $templates = new League\Plates\Engine(VIEWS);
 
-  // Render a template
-  echo $templates->render($data['view'].'.view', $data['data']);
+    // Render a template
+    echo $templates->render($data['view'].'.view', $data['data']);
 
 
-  //extract($data['data']);
+    //extract($data['data']);
 
-  //$view = $data['view'].'.view.php';
-  
-  //require VIEWS.'index.view.php';
-} catch (Throwable $e) {
+    //$view = $data['view'].'.view.php';
+    
+    //require VIEWS.'index.view.php';
+  } catch (Throwable $e) {
     \Sentry\captureException($e);  
     echo $e->getMessage();
 }
