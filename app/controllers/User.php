@@ -47,11 +47,11 @@ class User {
         $created = create('users', $validate);
 
         if (!$created) {
-            setFlash('message', 'Ocorreu um erro ao tentar cadastrar, faça contato com o administrador');
+            setFlash('error', 'Ocorreu um erro ao tentar cadastrar, faça contato com o administrador');
             return redirect('/user/create');
         }
 
-        return redirect('/');
+        return setMessageAndRedirect('success', 'Usuário cadastrado com sucesso!', '/');
     }
 
     public function edit()

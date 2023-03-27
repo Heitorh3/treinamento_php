@@ -358,7 +358,7 @@ function execute(bool $isFetchAll = true, bool $isRowCount = false)
             'sql' => $query['sql'],
         ];
 
-        ddd($error);
+        ds($error);
     }    
 }
 
