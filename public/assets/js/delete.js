@@ -9,7 +9,7 @@ function deleteButtonClick() {
       const url = button.getAttribute('href');
       Swal.fire({
         title: 'Tem certeza?',
-        text: "Você não poderá reverter essa ação!",
+        text: "Essa ação não poderá revertida!",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

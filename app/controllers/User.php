@@ -60,7 +60,7 @@ class User {
         if (!logged()) {
             redirect('/');
         }
-
+        
         // read('users', 'users.id,firstName,lastName,email,password,path');
         // tableJoin('photos', 'id', 'left');
         // where('users.id', user()->id); 
@@ -114,9 +114,9 @@ class User {
         $deleted = delete('users',['id' => $params['user']]);
 
         if (!$deleted) {
-            setMessageAndRedirect('error', 'Ocorreu um erro ao tentar deletar, faça contato com o administrador','/');            
+            setMessageAndRedirect('error', 'Ocorreu um erro ao tentar apagar o registro, faça contato com o administrador','/');            
         }
 
-        setMessageAndRedirect('success', 'Deletado com sucesso', '/');
+        setMessageAndRedirect('success', 'Registro apagado/deletado com sucesso!', '/');
     }
 }
