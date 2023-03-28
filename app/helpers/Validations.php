@@ -10,7 +10,6 @@ function required($field)
     return filter_input(INPUT_POST, $field, FILTER_UNSAFE_RAW);
 }
 
-
 function email($field)
 {
     $emailIsValid = filter_input(INPUT_POST, $field, FILTER_VALIDATE_EMAIL);

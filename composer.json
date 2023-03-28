@@ -11,7 +11,8 @@
     "sentry/sdk": "^3.1",
     "league/plates": "^3.4",
     "vlucas/phpdotenv": "^5.3",
-    "doctrine/inflector": "2.0.4"
+    "doctrine/inflector": "2.0.4",
+    "phpmailer/phpmailer": "^6.8"
   },
   "autoload": {
     "files": [
@@ -22,6 +23,7 @@
       "app/helpers/Redirect.php",
       "app/helpers/Flash.php",
       "app/helpers/Old.php",
+      "app/helpers/Email.php",
       "app/helpers/Csrf.php",
       "app/helpers/Sessions.php",
       "app/helpers/Validate.php",

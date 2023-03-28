@@ -21,6 +21,7 @@ return array(
     'Psr\\Http\\Client\\' => array($vendorDir . '/psr/http-client/src'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'PhpOption\\' => array($vendorDir . '/phpoption/phpoption/src/PhpOption'),
+    'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'League\\Plates\\' => array($vendorDir . '/league/plates/src'),
     'Jean85\\' => array($vendorDir . '/jean85/pretty-package-versions/src'),
     'Http\\Promise\\' => array($vendorDir . '/php-http/promise/src'),
