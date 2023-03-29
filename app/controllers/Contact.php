@@ -48,6 +48,6 @@ class Contact {
       if($sent){
         return setMessageAndRedirect('success', 'Mensagem enviada com sucesso!', '/contact');
       }
-      return setMessageAndRedirect('error', "Error ao tentar enviar a mensagem, Tente enviar a sua mensagem diretamente para o seguinte e-mail: {$_ENV['TOEMAIL']}.", '/contact');
+      return setMessageAndRedirect('error', "Error ao tentar enviar a mensagem, Tente enviar a la diretamente para o e-mail: {$_ENV['TOEMAIL']}.", '/contact');
     }
 }
