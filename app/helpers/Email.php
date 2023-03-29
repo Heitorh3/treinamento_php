@@ -53,7 +53,7 @@ function checkPropertiesEmail($emailData)
   $emailVars = get_object_vars($emailData);
   
   foreach($propertiesRequired as $prop){
-    if(!in_array($prop,array_keys($emailVars))){
+    if(!array_key_exists($prop,$emailVars)){
       throw new Exception("A propriedade: {$prop} é obrigatória para o envio do e-mail!");
     }
   }
