@@ -23,6 +23,7 @@ function send(stdClass|array $emailData)
       $emailData = (object)$emailData;
     }
     
+    $body = (isset($emailData->template)) ? template($emailData) : $emailData->message;
     checkPropertiesEmail($emailData);
 
     $mail = config();
@@ -32,9 +33,10 @@ function send(stdClass|array $emailData)
     $mail->addAddress($emailData->toEmail, $emailData->toName);     
   
     //Content
-    $mail->isHTML(true);                                
+    $mail->isHTML(true);     
+    $mail->CharSet = 'UTF-8';                           
     $mail->Subject = $emailData->subject;
-    $mail->Body    = $emailData->message;
+    $mail->Body    = $body;
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
   
     return $mail->send();
@@ -55,4 +57,24 @@ function checkPropertiesEmail($emailData)
       throw new Exception("A propriedade: {$prop} é obrigatória para o envio do e-mail!");
     }
   }
+}
+
+function template($emailData)
+{
+  $template = file_get_contents(ROOT."/app/views/emails/{$emailData->template}.html");
+  
+  $emailVars = get_object_vars($emailData);
+
+  $arr = array_map(function($key){
+    return "@{$key}";
+  },array_keys($emailVars));
+  
+  return str_replace($arr,array_values($emailVars), $template);
+  /*
+  $vars = [];
+  foreach($emailVars as $key => $value){
+    $vars["@$key"] = $value;
+  }
+  return str_replace(array_keys($vars),array_values($vars), $template);
+  */
 }

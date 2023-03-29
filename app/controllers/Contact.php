@@ -30,7 +30,7 @@ class Contact {
         'toName'=>'Jhon Doe',
         'toEmail'=>'jhondo@gmail.com',
         'subject'=>'Teste de envio de e-mail',
-        'message'=>'Teste de envio de e-mail com array',
+        'message'=>'Teste de envio de e-mail com template html',
         'template'=>'contact',
       ]);
       ds($sent);
