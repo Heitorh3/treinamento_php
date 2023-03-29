@@ -31,6 +31,7 @@ class ComposerStaticInit2aa8c87b271eece91dd3eaeac38fdd89
         '348a23882672074b0aa42b8f4d895f1e' => __DIR__ . '/../..' . '/app/helpers/Validations.php',
         'cb015e407691cd0897890a40523f59a0' => __DIR__ . '/../..' . '/app/helpers/Constants.php',
         '6bff0eda60aa2c6791f2210480e38bd7' => __DIR__ . '/../..' . '/app/helpers/Helpers.php',
+        'a0715463e094624d14089d476589614a' => __DIR__ . '/../..' . '/app/helpers/Upload.php',
     );
 
     public static $prefixLengthsPsr4 = array (

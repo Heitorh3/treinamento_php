@@ -29,7 +29,8 @@
       "app/helpers/Validate.php",
       "app/helpers/Validations.php",
       "app/helpers/Constants.php",
-      "app/helpers/Helpers.php"
+      "app/helpers/Helpers.php",
+      "app/helpers/Upload.php"
     ],
     "psr-4": {
       "app\\": "app"

@@ -30,4 +30,5 @@ return array(
     '348a23882672074b0aa42b8f4d895f1e' => $baseDir . '/app/helpers/Validations.php',
     'cb015e407691cd0897890a40523f59a0' => $baseDir . '/app/helpers/Constants.php',
     '6bff0eda60aa2c6791f2210480e38bd7' => $baseDir . '/app/helpers/Helpers.php',
+    'a0715463e094624d14089d476589614a' => $baseDir . '/app/helpers/Upload.php',
 );
