@@ -2,7 +2,11 @@
 
 <h2>Contato</h2>
 
+<?php echo getFlash('success', 'background-color:green;color:white'); ?>
+<?php echo getFlash('error', 'background-color:red;color:white'); ?>
+
 <form method="post" action="/contact">
+    <?php echo getCsrf();?>
     <input type="text" name="name" id="name" placeholder="Seu nome"  value="<?php echo getOld('name'); ?>"/>
     <?php echo getFlash('name'); ?>
     <br/>

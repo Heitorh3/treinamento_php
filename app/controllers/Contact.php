@@ -24,15 +24,30 @@ class Contact {
       $email->template = 'contact';
       */
 
+      $validated = validate([  
+        'name' => 'required',
+        'email' => 'required|email',
+        'subject'=> 'required',
+        'messagem'=> 'required'
+      ],persistInputs:true,checkCsrf:true);
+
+      if(!$validated){
+        return redirect('/contact');
+      }
+
       $sent = send([
-        'fromName'=>'Heitor Neto',
-        'fromEmail'=>'heitorh3@gmail.com',
-        'toName'=>'Jhon Doe',
-        'toEmail'=>'jhondo@gmail.com',
-        'subject'=>'Teste de envio de e-mail',
-        'message'=>'Teste de envio de e-mail com template html',
+        'fromName'=>$validated['name'],
+        'fromEmail'=>$validated['email'],
+        'toName'=>$_ENV['TONAME'],
+        'toEmail'=>$_ENV['TOEMAIL'],
+        'subject'=>$validated['subject'],
+        'message'=>$validated['messagem'],
         'template'=>'contact',
       ]);
-      ds($sent);
+      
+      if($sent){
+        return setMessageAndRedirect('success', 'Mensagem enviada com sucesso!', '/contact');
+      }
+      return setMessageAndRedirect('error', "Error ao tentar enviar a mensagem, Tente enviar a sua mensagem diretamente para o seguinte e-mail: {$_ENV['TOEMAIL']}.", '/contact');
     }
 }

@@ -41,7 +41,7 @@ function send(stdClass|array $emailData)
   
     return $mail->send();
   }catch(Exception $e){
-    echo $e->getMessage();
+    ds($e->getMessage());
   }
 }
 
@@ -61,7 +61,13 @@ function checkPropertiesEmail($emailData)
 
 function template($emailData)
 {
-  $template = file_get_contents(ROOT."/app/views/emails/{$emailData->template}.html");
+  $templateFile = ROOT."/app/views/emails/{$emailData->template}.html";
+  
+  if(!file_exists($templateFile)){
+    throw new Exception("O template: {$emailData->template}.html não existie!");
+  }
+
+  $template = file_get_contents($templateFile);
   
   $emailVars = get_object_vars($emailData);
 
