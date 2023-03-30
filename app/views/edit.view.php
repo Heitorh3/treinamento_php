@@ -2,6 +2,9 @@
 
 <h2>Editar usuário - <?php echo $user->name ?></h2>
 
+<?php echo getFlash('success', 'background-color:green;color:white'); ?>
+<?php echo getFlash('error', 'background-color:red;color:white'); ?>
+
 <form method="post" action="/user/<?php echo $user->id ?>/update">
     <?php echo getCsrf(); ?>
 

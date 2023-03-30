@@ -16,7 +16,7 @@ function getExtension(string $name)
 
 function isFileToUpload($fieldName)
 {
-  if(!isset($_FILES[$fieldName])|| !isset($_FILES[$fieldName]['name'])|| $_FILES[$fieldName]['name']=== ''){
+  if(!isset($_FILES[$fieldName], $_FILES[$fieldName]['name']) || $_FILES[$fieldName]['name']=== ''){
     throw new exception('Por favor escolha uma imagem/arquivo para ser enviado!');
   }
 }
@@ -33,10 +33,8 @@ function resize(int $width, int $height, int $newWidth, int $newHeight){
 
   if($newWidth/$newHeight > $ratio){
       $newWidth = $newHeight * $ratio;
-      $newHeight = $newHeight;
   }else{
       $newHeight = $newWidth / $ratio;
-      $newWidth = $newHeight;
   }
   return [$newHeight,$newWidth];
 }
@@ -59,15 +57,18 @@ function crop(int $width, int $height, int $newWidth, int $newHeight)
 }
 function upload(int $newWidth, int $newHeight, string $folder, string $type = 'resize')
 {
+  isFileToUpload('file');
+
   $tmpFileName = $_FILES['file']['tmp_name'];
   $fileName = $_FILES['file']['name'];
+
+  isImage($fileName);
 
   [$widht, $height] = getimagesize($tmpFileName);
 
   [$imagecreatefrom, $imagesave] = getFunctionCreateFrom($fileName);
 
   $src = $imagecreatefrom($tmpFileName);
-
   
   if($type === 'resize'){
     [$newHeight,$newWidth] = resize($widht, $height, $newWidth, $newHeight);
