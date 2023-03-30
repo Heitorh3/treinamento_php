@@ -28,15 +28,42 @@ function isImage($name)
   }
 }
 
-function upload()
+function resize(int $width, int $height, int $newWidth, int $newHeight){
+  $ratio = $width/$height;
+
+  if($newWidth/$newHeight > $ratio){
+      $newWidth = $newHeight * $ratio;
+      $newHeight = $newHeight;
+  }else{
+      $newHeight = $newWidth / $ratio;
+      $newWidth = $newHeight;
+  }
+  return [$newHeight,$newWidth];
+}
+
+function crop(){
+
+}
+function upload(int $newWidth, int $newHeight, string $folder, string $type = 'resize')
 {
-  $dst = imagecreatetruecolor(640,480);
-  [$widht, $height] = getimagesize($_FILES['file']['tmp_name']);
+  $tmpFileName = $_FILES['file']['tmp_name'];
+  $fileName = $_FILES['file']['name'];
 
-  [$imagecreatefrom, $imagesave] = getFunctionCreateFrom($_FILES['file']['name']);
+  [$widht, $height] = getimagesize($tmpFileName);
 
-  $src = $imagecreatefrom($_FILES['file']['tmp_name']);
+  [$imagecreatefrom, $imagesave] = getFunctionCreateFrom($fileName);
 
-  imagecopyresampled($dst, $src, 0, 0, 0, 0, 640, 480, $widht, $height);
-  $imagesave($dst, 'assets/images/teste.png');
+  $src = $imagecreatefrom($tmpFileName);
+
+  
+  if($type === 'resize'){
+    [$newHeight,$newWidth] = resize($widht, $height, $newWidth, $newHeight);
+    $dst = imagecreatetruecolor($newWidth,$newHeight);
+    imagecopyresampled($dst, $src, 0, 0, 0, 0, $newWidth,$newHeight, $widht, $height);
+  }else{
+    crop();
+   // imagecopyresampled($dst, $src, 0, 0, 0, 0, 640, 480, $widht, $height);
+  }
+
+  $imagesave($dst, $folder.DIRECTORY_SEPARATOR.rand().'.'.getExtension($fileName));
 }
