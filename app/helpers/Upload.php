@@ -41,8 +41,21 @@ function resize(int $width, int $height, int $newWidth, int $newHeight){
   return [$newHeight,$newWidth];
 }
 
-function crop(){
+function crop(int $width, int $height, int $newWidth, int $newHeight)
+{
+  $thumbWidth = $newWidth;
+  $thumbHeight = $newHeight;
 
+  $srcAspect = $width / $height;
+  $dstAspect = $thumbWidth / $thumbHeight;
+
+  if($srcAspect >= $dstAspect){
+      $newWidth = $width / ($height / $thumbHeight);
+  }else {
+      $newHeight = $height / ($width / $thumbWidth);
+  }
+
+  return [$newWidth, $newHeight, $thumbWidth, $thumbHeight];
 }
 function upload(int $newWidth, int $newHeight, string $folder, string $type = 'resize')
 {
@@ -61,8 +74,15 @@ function upload(int $newWidth, int $newHeight, string $folder, string $type = 'r
     $dst = imagecreatetruecolor($newWidth,$newHeight);
     imagecopyresampled($dst, $src, 0, 0, 0, 0, $newWidth,$newHeight, $widht, $height);
   }else{
-    crop();
-   // imagecopyresampled($dst, $src, 0, 0, 0, 0, 640, 480, $widht, $height);
+    [$newWidth, $newHeight, $thumbWidth, $thumbHeight] = crop($widht, $height, $newWidth, $newHeight);
+    $dst = imagecreatetruecolor($thumbWidth, $thumbHeight);
+    imagecopyresampled(
+      $dst, 
+      $src, 
+      0 - ($newWidth - $thumbWidth),
+      0 - ($newHeight - $thumbHeight), 
+      0, 
+      0, $newWidth,$newHeight, $widht, $height);
   }
 
   $imagesave($dst, $folder.DIRECTORY_SEPARATOR.rand().'.'.getExtension($fileName));
