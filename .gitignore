@@ -3,3 +3,7 @@ node_modules/
 composer.lock
 yarn.lock
 .env  
+.png
+.jpeg
+.gif
+.jpg
