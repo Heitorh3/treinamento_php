@@ -10,9 +10,9 @@ CREATE TABLE `users` (
 INSERT INTO users (name, email)
 VALUES ('Heitor Neto', 'heitorh3@gmail.com');
 
-CREATE TABLE photo {
+CREATE TABLE `photos` {
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userid` int(11) DEFAULT NOT NULL,
+  `userId` int(11) DEFAULT NOT NULL,
   `path` varchar(45) DEFAULT NULL,  
-   FOREIGN KEY (`userid`) REFERENCES `users`(`userid`)
+   FOREIGN KEY (`userId`) REFERENCES `users`(`userId`)
 }
