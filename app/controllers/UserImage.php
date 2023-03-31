@@ -5,10 +5,10 @@ namespace app\Controllers;
 class UserImage {
   public function store()
   {
-    $name = $_FILES['file']['name'];
-    upload();
-    //isImage($name);
-    //isFileToUpload('file');
-    //ds(getExtension($name));
+    try{
+      upload(640,480,'assets/images','crop');
+    }catch(\Exception $e){
+       return setMessageAndRedirect('error', $e->getMessage(), '/user/edit/profile');
+    }
   }
 }
