@@ -1,7 +1,7 @@
 <?php
+
 function read(string $table, string $fields = '*')
 {
-
     global $query;
 
     $query = [];
@@ -10,5 +10,4 @@ function read(string $table, string $fields = '*')
     $query['read'] = true;
     $query['table'] = $table;
     $query['sql'] = "SELECT {$fields} FROM {$table}";
-
 }

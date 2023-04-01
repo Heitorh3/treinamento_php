@@ -1,36 +1,36 @@
 <?php
+
 // where('Name', 'Heitor Neto');
-// orWhere('email', 'heitorh3@hotmail.com'); 
+// orWhere('email', 'heitorh3@hotmail.com');
 // orWhere('email', '<', 'heitorh3@hotmail.com');
 // orWhere('email', '<', 'heitorh3@hotmail.com', 'and');
 // orWhere('email','heitorh3@gmail.com', 'and');
 function where()
 {
-
     global $query;
 
     if (isset($query['where'])) {
-        throw new Exception("Verifique quantos wheres esta sendo chamado na criação da sua query");
+        throw new Exception('Verifique quantos wheres esta sendo chamado na criação da sua query');
     }
-    
+
     $args = func_get_args();
     $numArgs = func_num_args();
 
-    if(!isset($query['read'])){
+    if (!isset($query['read'])) {
         throw new Exception('Antes de chamar o where chame o read');
     }
 
-    if($numArgs < 2 || $numArgs > 3){
+    if ($numArgs < 2 || $numArgs > 3) {
         throw new Exception('O where precisa de 2 ou 3 parâmetros');
     }
 
-    if($numArgs === 2 ){
+    if ($numArgs === 2) {
         $field = $args[0];
         $operator = '=';
         $value = $args[1];
     }
 
-    if($numArgs === 3 ){
+    if ($numArgs === 3) {
         $field = $args[0];
         $operator = $args[1];
         $value = $args[2];
@@ -54,7 +54,7 @@ function where()
 //     if(func_num_args() != 3){
 //         throw new Exception('O where precisa de 3 parâmetros');
 //     }
-    
+
 //     $query['where'] = true;
 //     $query['execute'] = array_merge($query['execute'], [$field => $value]);
 //     $query['sql'] = "{$query['sql']} WHERE {$field} {$operator} :{$field}";
@@ -111,7 +111,7 @@ function orWhere()
 //     if(func_num_args() < 3 or func_num_args() > 4){
 //         throw new Exception('O where precisa de 3 ou 4 parâmetros');
 //     }
-    
+
 //     $query['where'] = true;
 //     $query['execute'] = array_merge($query['execute'], [$field => $value]);
 //     $query['sql'] = "{$query['sql']} {$typeWhere} {$field} {$operator} :{$field}";
@@ -124,17 +124,17 @@ function whereTwoParameters(array $args): array
     $value = $args[1];
     $typeWhere = 'or';
 
-    return [$field,$operator,$value, $typeWhere];
+    return [$field, $operator, $value, $typeWhere];
 }
 function whereThreeParameters(array $args): array
 {
-    $operators = ['=','<','>','!==','<=','>='];
+    $operators = ['=', '<', '>', '!==', '<=', '>='];
     $field = $args[0];
     $operator = in_array($args[1], $operators) ? $args[1] : '=';
     $value = in_array($args[1], $operators) ? $args[2] : $args[1];
     $typeWhere = $args[2] === 'and' ? 'and' : 'or';
 
-    return [$field,$operator,$value, $typeWhere];
+    return [$field, $operator, $value, $typeWhere];
 }
 
 function whereIn(string $field, array $data)
@@ -142,9 +142,9 @@ function whereIn(string $field, array $data)
     global $query;
 
     if (isset($query['where'])) {
-        throw new Exception("Não poder ter chamado a função where com a função where in");
+        throw new Exception('Não poder ter chamado a função where com a função where in');
     }
 
     $query['where'] = true;
-    $query['sql'] = "{$query['sql']} where {$field} in (".'\''.implode('\',\'', $data).'\''.')';
+    $query['sql'] = "{$query['sql']} where {$field} in (" . '\'' . implode('\',\'', $data) . '\'' . ')';
 }

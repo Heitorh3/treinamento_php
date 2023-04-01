@@ -3,7 +3,8 @@
 function required($field)
 {
     if ($_POST[$field] === '') {
-        setFlash($field, "O campo é obrigatório");
+        setFlash($field, 'O campo é obrigatório');
+
         return false;
     }
 
@@ -15,7 +16,8 @@ function email($field)
     $emailIsValid = filter_input(INPUT_POST, $field, FILTER_VALIDATE_EMAIL);
 
     if (!$emailIsValid) {
-        setFlash($field, "O campo tem que ser um email válido");
+        setFlash($field, 'O campo tem que ser um email válido');
+
         return false;
     }
 
@@ -35,11 +37,13 @@ function uniqueUpdate($field, $param)
         orWhere($fieldToCompare, '!=', $value, 'and');
         $userFound = execute(isFetchAll:false);
         if ($userFound) {
-            setFlash($field, "Esse valor já está cadastrado");
+            setFlash($field, 'Esse valor já está cadastrado');
+
             return false;
         }
     } else {
-        setFlash($field, "A validaçao para o unique email no update tem que ter o sinal de =");
+        setFlash($field, 'A validaçao para o unique email no update tem que ter o sinal de =');
+
         return false;
         // throw new Exception("A validaçao para o unique email no update tem que ter o sinal de =");
     }
@@ -53,7 +57,8 @@ function unique($field, $param)
     $user = findBy($param, $field, $data);
 
     if ($user) {
-        setFlash($field, "Esse valor já está cadastrado");
+        setFlash($field, 'Esse valor já está cadastrado');
+
         return false;
     }
 
@@ -67,6 +72,7 @@ function maxlen($field, $param)
 
     if (strlen($data) > $param) {
         setFlash($field, "Esse campo não pode passar de {$param} caracteres");
+
         return false;
     }
 

@@ -2,15 +2,16 @@
 
 namespace app\Controllers;
 
-class Maintenance {
+class Maintenance
+{
     public function index()
     {
-$data = [
-          'title' => 'Manutenção',
-          'subtitle' => 'Site em manutenção.',
-          'description' => 'Pedimos desculptas pelos transtornos! Estamos em processo de manutenção, tente novamente mais tarde.'
-      ];
+        $data = [
+            'title' => 'Manutenção',
+            'subtitle' => 'Site em manutenção.',
+            'description' => 'Pedimos desculptas pelos transtornos! Estamos em processo de manutenção, tente novamente mais tarde.',
+        ];
 
-      return ['view'=>'maintenance', 'data'=> $data];
+        return ['view' => 'maintenance', 'data' => $data];
     }
 }

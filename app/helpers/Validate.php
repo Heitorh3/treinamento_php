@@ -30,6 +30,7 @@ function singleValidation($validate, $field, $param)
     if (str_contains($validate, ':')) {
         [$validate, $param] = explode(':', $validate);
     }
+
     return $validate($field, $param);
 }
 
@@ -48,5 +49,6 @@ function multipleValidations($validate, $field, $param)
             break;
         }
     }
+
     return $result[$field];
 }

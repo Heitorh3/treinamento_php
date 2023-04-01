@@ -1,65 +1,66 @@
 <?php
-function paginate(string|int $perPage = 10){
-  global $query;
 
-  if(isset($query['limit'])){
-      throw new Exception('A paginação não pode ser chamada com o limit');
-  }
+function paginate(string|int $perPage = 10)
+{
+    global $query;
 
-  $rowCount = execute(isRowCount:true);
+    if (isset($query['limit'])) {
+        throw new Exception('A paginação não pode ser chamada com o limit');
+    }
 
-  $page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT);
+    $rowCount = execute(isRowCount:true);
 
-  $page = $page ?? 1;
+    $page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT);
 
-  $query['currentPage'] = (int)$page;
-  $query['pageCount'] = (int)ceil($rowCount / $perPage);
-  $offset = (int)($page - 1) * $perPage;
+    $page = $page ?? 1;
 
-  $query['paginate'] = true;
-  $query['sql'] = "{$query['sql']} limit {$perPage} offset {$offset}";
+    $query['currentPage'] = (int)$page;
+    $query['pageCount'] = (int)ceil($rowCount / $perPage);
+    $offset = (int)($page - 1) * $perPage;
+
+    $query['paginate'] = true;
+    $query['sql'] = "{$query['sql']} limit {$perPage} offset {$offset}";
 }
 
 function render()
 {
-  global $query;
+    global $query;
 
-  $pageCount = $query['pageCount'];
-  $currentPage = $query['currentPage'];
-  $maxLinks = 5;
+    $pageCount = $query['pageCount'];
+    $currentPage = $query['currentPage'];
+    $maxLinks = 5;
 
-  $links = '<ul class="pagination">';
+    $links = '<ul class="pagination">';
 
-  if ($currentPage > 1) {
-      $previous = $currentPage - 1;
-      $linkPage = http_build_query(array_merge($_GET, ['page' => $previous]));
-      $first = http_build_query(array_merge($_GET, ['page' => 1]));
-      $links.= "<li class='page-item'><a href='?{$first}' class='page-link'>Primeira</a></li>";
-      $links.= "<li class='page-item'><a href='?{$linkPage}' class='page-link'>Anterior</a></li>";
-  }
+    if ($currentPage > 1) {
+        $previous = $currentPage - 1;
+        $linkPage = http_build_query(array_merge($_GET, ['page' => $previous]));
+        $first = http_build_query(array_merge($_GET, ['page' => 1]));
+        $links .= "<li class='page-item'><a href='?{$first}' class='page-link'>Primeira</a></li>";
+        $links .= "<li class='page-item'><a href='?{$linkPage}' class='page-link'>Anterior</a></li>";
+    }
 
-  $class = '';
-  // 1 - 5  = -4  1 + 5 = 6
-  // 7 - 5 = 2 .  7+5 = 12
-  for ($i=$currentPage - $maxLinks; $i<=$currentPage + $maxLinks ; $i++) {
-      // $page = "?page={$i}";
-      if ($i > 0 && $i <= $pageCount) {
-          $class = $currentPage === $i ? 'active' : '';
-          $linkPage = http_build_query(array_merge($_GET, ['page' => $i]));
-          $links.= "<li class='page-item {$class}'><a href='?{$linkPage}' class='page-link'>{$i}</a></li>";
-      }
-  }
+    $class = '';
+    // 1 - 5  = -4  1 + 5 = 6
+    // 7 - 5 = 2 .  7+5 = 12
+    for ($i = $currentPage - $maxLinks; $i <= $currentPage + $maxLinks ; $i++) {
+        // $page = "?page={$i}";
+        if ($i > 0 && $i <= $pageCount) {
+            $class = $currentPage === $i ? 'active' : '';
+            $linkPage = http_build_query(array_merge($_GET, ['page' => $i]));
+            $links .= "<li class='page-item {$class}'><a href='?{$linkPage}' class='page-link'>{$i}</a></li>";
+        }
+    }
 
-  if ($currentPage < $pageCount) {
-      $next = $currentPage + 1;
-      $linkPage = http_build_query(array_merge($_GET, ['page' => $next]));
-      $last = http_build_query(array_merge($_GET, ['page' => $pageCount]));
-      $links.= "<li class='page-item'><a href='?{$linkPage}' class='page-link'>Próxima</a></li>";
-      $links.= "<li class='page-item'><a href='?{$last}' class='page-link'>Última</a></li>";
-  }
+    if ($currentPage < $pageCount) {
+        $next = $currentPage + 1;
+        $linkPage = http_build_query(array_merge($_GET, ['page' => $next]));
+        $last = http_build_query(array_merge($_GET, ['page' => $pageCount]));
+        $links .= "<li class='page-item'><a href='?{$linkPage}' class='page-link'>Próxima</a></li>";
+        $links .= "<li class='page-item'><a href='?{$last}' class='page-link'>Última</a></li>";
+    }
 
-  $links .= '</ul>';
+    $links .= '</ul>';
 
-  return $links;
+    return $links;
 }
-

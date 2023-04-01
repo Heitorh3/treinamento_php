@@ -7,7 +7,7 @@ function fieldFK(string $table, string $field)
     $inflector = InflectorFactory::create()->build();
     $tableToSingular = $inflector->singularize($table);
 
-    return $tableToSingular.ucfirst($field);
+    return $tableToSingular . ucfirst($field);
 }
 
 function tableJoin(string $table, string $fieldFK, string $typeJoin = 'inner')
@@ -15,7 +15,7 @@ function tableJoin(string $table, string $fieldFK, string $typeJoin = 'inner')
     global $query;
 
     if (isset($query['where'])) {
-        throw new Exception("Nao posso colocar o where antes do join");
+        throw new Exception('Nao posso colocar o where antes do join');
     }
 
     $fkToJoin = fieldFK($query['table'], $fieldFK);
@@ -28,7 +28,7 @@ function tableJoinWithFK(string $table, string $fieldFK, string $typeJoin = 'inn
     global $query;
 
     if (isset($query['where'])) {
-        throw new Exception("Não pode colocar o where antes do join");
+        throw new Exception('Não pode colocar o where antes do join');
     }
 
     $fkToJoin = fieldFK($table, $fieldFK);

@@ -2,88 +2,94 @@
 
 function getFunctionCreateFrom(string $name)
 {
-  return match(getExtension($name)){
-    'png' => ['imagecreatefrompng','imagepng'],
-    'jpeg','jpg' => ['imagecreatefromjpeg','imagejpeg'],
-    'gif' => ['imagecreatefromgif','imagegif']
-  };
+    return match (getExtension($name)) {
+        'png' => ['imagecreatefrompng', 'imagepng'],
+        'jpeg','jpg' => ['imagecreatefromjpeg', 'imagejpeg'],
+        'gif' => ['imagecreatefromgif', 'imagegif']
+    };
 }
 
 function getExtension(string $name)
 {
-  return pathinfo($name, PATHINFO_EXTENSION);
+    return pathinfo($name, PATHINFO_EXTENSION);
 }
 
 function isFileToUpload($fieldName)
 {
-  if(!isset($_FILES[$fieldName], $_FILES[$fieldName]['name']) || $_FILES[$fieldName]['name']=== ''){
-    throw new exception('Por favor escolha uma imagem/arquivo para ser enviado!');
-  }
+    if (!isset($_FILES[$fieldName], $_FILES[$fieldName]['name']) || $_FILES[$fieldName]['name'] === '') {
+        throw new exception('Por favor escolha uma imagem/arquivo para ser enviado!');
+    }
 }
 
 function isImage($name)
 {
-  if(!in_array(getExtension($name), ['jpg', 'jpeg', 'png','gif'])){
-    throw new exception('Por favor escolha um arquivo com as seguintes extensões: jpg, jpeg, gif e png');
-  }
+    if (!in_array(getExtension($name), ['jpg', 'jpeg', 'png', 'gif'])) {
+        throw new exception('Por favor escolha um arquivo com as seguintes extensões: jpg, jpeg, gif e png');
+    }
 }
 
-function resize(int $width, int $height, int $newWidth, int $newHeight){
-  $ratio = $width / $height;
+function resize(int $width, int $height, int $newWidth, int $newHeight)
+{
+    $ratio = $width / $height;
 
-  ($newWidth / $newHeight > $ratio) ?
-      $newWidth = $newHeight * $ratio :
-      $newHeight = $newWidth / $ratio;
+    ($newWidth / $newHeight > $ratio) ?
+        $newWidth = $newHeight * $ratio :
+        $newHeight = $newWidth / $ratio;
 
-  return [$newWidth, $newHeight];
+    return [$newWidth, $newHeight];
 }
 
 function crop(int $width, int $height, int $newWidth, int $newHeight)
 {
-  $thumbWidth = $newWidth;
-  $thumbHeight = $newHeight;
+    $thumbWidth = $newWidth;
+    $thumbHeight = $newHeight;
 
-  $srcAspect = $width / $height;
-  $dstAspect = $thumbWidth / $thumbHeight;
+    $srcAspect = $width / $height;
+    $dstAspect = $thumbWidth / $thumbHeight;
 
-  ($srcAspect >= $dstAspect) ?
-      $newWidth = $width / ($height / $thumbHeight) :
-      $newHeight = $height / ($width / $thumbWidth);
+    ($srcAspect >= $dstAspect) ?
+        $newWidth = $width / ($height / $thumbHeight) :
+        $newHeight = $height / ($width / $thumbWidth);
 
-  return [$newWidth, $newHeight, $thumbWidth, $thumbHeight];
+    return [$newWidth, $newHeight, $thumbWidth, $thumbHeight];
 }
 function upload(int $newWidth, int $newHeight, string $folder, string $type = 'resize')
 {
-  isFileToUpload('file');
+    isFileToUpload('file');
 
-  $tmpFileName = $_FILES['file']['tmp_name'];
-  $fileName = $_FILES['file']['name'];
+    $tmpFileName = $_FILES['file']['tmp_name'];
+    $fileName = $_FILES['file']['name'];
 
-  isImage($fileName);
+    isImage($fileName);
 
-  [$widht, $height] = getimagesize($tmpFileName);
+    [$widht, $height] = getimagesize($tmpFileName);
 
-  [$imagecreatefrom, $imagesave] = getFunctionCreateFrom($fileName);
+    [$imagecreatefrom, $imagesave] = getFunctionCreateFrom($fileName);
 
-  $src = $imagecreatefrom($tmpFileName);
-  
-  if($type === 'resize'){
-    [$newHeight,$newWidth] = resize($widht, $height, $newWidth, $newHeight);
-    $dst = imagecreatetruecolor($newWidth,$newHeight);
-    imagecopyresampled($dst, $src, 0, 0, 0, 0, $newWidth,$newHeight, $widht, $height);
-  }else{
-    [$newWidth, $newHeight, $thumbWidth, $thumbHeight] = crop($widht, $height, $newWidth, $newHeight);
-    $dst = imagecreatetruecolor($thumbWidth, $thumbHeight);
-    imagecopyresampled(
-      $dst, 
-      $src, 
-      0 - ($newWidth - $thumbWidth),
-      0 - ($newHeight - $thumbHeight), 
-      0, 
-      0, $newWidth,$newHeight, $widht, $height);
-  }
+    $src = $imagecreatefrom($tmpFileName);
 
-  $path = $imagesave($dst, $folder.DIRECTORY_SEPARATOR.rand().'.'.getExtension($fileName));
+    if ($type === 'resize') {
+        [$newHeight,$newWidth] = resize($widht, $height, $newWidth, $newHeight);
+        $dst = imagecreatetruecolor($newWidth, $newHeight);
+        imagecopyresampled($dst, $src, 0, 0, 0, 0, $newWidth, $newHeight, $widht, $height);
+    } else {
+        [$newWidth, $newHeight, $thumbWidth, $thumbHeight] = crop($widht, $height, $newWidth, $newHeight);
+        $dst = imagecreatetruecolor($thumbWidth, $thumbHeight);
+        imagecopyresampled(
+            $dst,
+            $src,
+            0 - ($newWidth - $thumbWidth),
+            0 - ($newHeight - $thumbHeight),
+            0,
+            0,
+            $newWidth,
+            $newHeight,
+            $widht,
+            $height
+        );
+    }
 
-  return $path;
+    $path = $imagesave($dst, $folder . DIRECTORY_SEPARATOR . rand() . '.' . getExtension($fileName));
+
+    return $path;
 }

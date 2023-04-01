@@ -11,4 +11,4 @@ define('URL_CSS', URL_ROOT . 'public/css/');
 define('URL_JS', URL_ROOT . 'public/js/');
 define('URL_IMG', URL_ROOT . 'public/img/');
 
-define('SENTRY_DSN','https://f0278f6e29ea4b4793f7dcd3ce1db93a@o209672.ingest.sentry.io/6044147');
+define('SENTRY_DSN', 'https://f0278f6e29ea4b4793f7dcd3ce1db93a@o209672.ingest.sentry.io/6044147');
