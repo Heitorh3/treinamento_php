@@ -60,12 +60,12 @@ class User
             redirect('/');
         }
 
-        // read('users', 'users.id,firstName,lastName,email,password,path');
-        // tableJoin('photos', 'id', 'left');
-        // where('users.id', user()->id);
+        read('users', 'users.id,firstName,lastName,email,password,path');
+        tableJoin('photos', 'id', 'left');
+        where('users.id', user()->id);
 
-        read('users');
-        where('id', user()->id);
+        // read('users');
+        // where('id', user()->id);
         $user = execute(isFetchAll:false);
 
         return [

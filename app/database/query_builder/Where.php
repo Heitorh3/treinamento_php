@@ -35,9 +35,16 @@ function where()
         $operator = $args[1];
         $value = $args[2];
     }
+
+    $fieldWere = $field;
+
+    if (str_contains($field, '.')) {
+        list(, $fieldWere) = explode('.', $field);
+    }
+
     $query['where'] = true;
-    $query['execute'] = array_merge($query['execute'], [$field => $value]);
-    $query['sql'] = "{$query['sql']} WHERE {$field} {$operator} :{$field}";
+    $query['execute'] = array_merge($query['execute'], [$fieldWere => $value]);
+    $query['sql'] = "{$query['sql']} WHERE {$field} {$operator} :{$fieldWere}";
 }
 
 // where antigo

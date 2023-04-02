@@ -5,6 +5,10 @@
 <?php echo getFlash('success', 'background-color:green;color:white'); ?>
 <?php echo getFlash('error', 'background-color:red;color:white'); ?>
 
+<?php if($user->path): ?>
+    <img src="/<?php echo $user->path ?>" alt="<?php echo $user->name ?>" />
+<?php endif; ?>
+
 <form method="post" action="/user/<?php echo $user->id ?>/update">
     <?php echo getCsrf(); ?>
 
