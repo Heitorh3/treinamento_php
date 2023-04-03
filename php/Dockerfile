@@ -5,7 +5,7 @@
 #FROM php:8.2.3-fpm-alpine
 #RUN docker-php-ext-configure gd mysqli pdo_mysql
 
-FROM php:8.0-fpm-alpine
+FROM php:8.2.3-fpm-alpine
 RUN apk add --no-cache mysql-client msmtp perl wget procps shadow libzip libpng libjpeg-turbo libwebp freetype icu icu-data-full
 
 RUN apk add --no-cache --virtual build-essentials \

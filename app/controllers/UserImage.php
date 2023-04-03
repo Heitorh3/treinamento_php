@@ -12,7 +12,7 @@ class UserImage
 
             read('photos');
             where('userId', $auth->id);
-            $photoUser = execute(isFethAll:false);
+            $photoUser = execute(isFetchAll:false);
 
             if ($photoUser) {
                 $updatedUser = update(

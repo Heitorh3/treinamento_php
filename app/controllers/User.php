@@ -60,7 +60,7 @@ class User
             redirect('/');
         }
 
-        read('users', 'users.id,firstName,lastName,email,password,path');
+        read('users', 'users.id,name,email,password,path');
         tableJoin('photos', 'id', 'left');
         where('users.id', user()->id);
 

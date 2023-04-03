@@ -17,6 +17,12 @@ Eu sou desenvolvedor **sua área**.
 
 Para rodar o projeto, siga estas etapas:
 
+Instalando as denpendências ante de rodar o projeto:
+
+```
+docker run --rm --interactive --tty --volume $PWD:/app composer install
+```
+
 ```
 docker run --rm --interactive --tty --volume $PWD:/app composer dump-autoload
 ```
@@ -56,7 +62,7 @@ CREATE TABLE `users` (
 INSERT INTO users (Name,email) VALUES ('Heitor Neto', 'heitorh3@gmail.com');
 SELECT * FROM users;
 
-ALTER TABLE users ADD COLUNM password VARCHAR(255);
+ALTER TABLE users ADD `password` VARCHAR(255) NOT NULL AFTER `email`;
 
 UPDATE users SET password = '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq' WHERE id = 1;
 ```

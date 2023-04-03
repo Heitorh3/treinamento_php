@@ -25,7 +25,7 @@ class Login
         }
 
         // $user = findBy('users', 'email', $email);
-        read('users', 'users.id, firstName, lastName, email, password, path');
+        read('users', 'users.id, name, email, password, path');
         tableJoin('photos', 'id', 'left');
         where('email', $email);
 

@@ -62,18 +62,18 @@ function upload(int $newWidth, int $newHeight, string $folder, string $type = 'r
 
     isImage($fileName);
 
-    [$widht, $height] = getimagesize($tmpFileName);
+    [$width, $height] = getimagesize($tmpFileName);
 
     [$imagecreatefrom, $imagesave] = getFunctionCreateFrom($fileName);
 
     $src = $imagecreatefrom($tmpFileName);
 
     if ($type === 'resize') {
-        [$newHeight,$newWidth] = resize($widht, $height, $newWidth, $newHeight);
+        [$newHeight,$newWidth] = resize($width, $height, $newWidth, $newHeight);
         $dst = imagecreatetruecolor($newWidth, $newHeight);
-        imagecopyresampled($dst, $src, 0, 0, 0, 0, $newWidth, $newHeight, $widht, $height);
+        imagecopyresampled($dst, $src, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
     } else {
-        [$newWidth, $newHeight, $thumbWidth, $thumbHeight] = crop($widht, $height, $newWidth, $newHeight);
+        [$newWidth, $newHeight, $thumbWidth, $thumbHeight] = crop($width, $height, $newWidth, $newHeight);
         $dst = imagecreatetruecolor($thumbWidth, $thumbHeight);
         imagecopyresampled(
             $dst,
@@ -84,7 +84,7 @@ function upload(int $newWidth, int $newHeight, string $folder, string $type = 'r
             0,
             $newWidth,
             $newHeight,
-            $widht,
+            $width,
             $height
         );
     }
