@@ -19,9 +19,8 @@ CREATE TABLE `photos` (
 /* Alterando a estrutura das tabelas */
 ALTER TABLE users ADD `password` VARCHAR(255) NOT NULL AFTER `email`;
 
-
 /* Inserindo/atualizando os dados iniciais no banco */
-INSERT INTO users (name, email)
-VALUES ('Heitor Neto', 'heitorh3@gmail.com');
+INSERT INTO users (name, email, password)
+VALUES ('Heitor Neto', 'heitorh3@gmail.com', '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq');
 
-UPDATE users SET password = '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq' WHERE id = 1;
+/*UPDATE users SET password = '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq' WHERE id = 1;*/

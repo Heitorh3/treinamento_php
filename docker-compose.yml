@@ -7,7 +7,7 @@ services:
       context: ./nginx
       dockerfile: Dockerfile
     volumes:
-      - ${APPLICATION}:/var/www/html
+      - '.:/var/www/html/'  
       - ${NGINX_HOST_LOG_PATH}:/var/log/nginx
       - ${NGINX_SITES_PATH}:/etc/nginx/conf.d
     ports:
@@ -16,7 +16,7 @@ services:
     links:
       - php
     networks:
-      - treinaNetPHP
+      - phpnet
   # Application service layer
   php:
     container_name: server_php   
@@ -42,11 +42,11 @@ services:
         - INSTALL_COMPOSER=${PHP_INSTALL_COMPOSER}
       dockerfile: Dockerfile
     volumes:
-      - ${APPLICATION}:/var/www/html          
+      - '.:/var/www/html/'          
     ports:
       - '9000:9000'
     networks:
-      - treinaNetPHP
+      - phpnet
 
   # # Data persistence service layer
   mysql:
@@ -64,7 +64,7 @@ services:
        - MYSQL_PASSWORD=${DATABASE_PASSWORD}
        - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}
      networks:
-      - treinaNetPHP
+      - phpnet
 networks:
-    treinaNetPHP:
+    phpnet:
         driver: bridge
