@@ -1,14 +1,14 @@
-FROM php:8.1.0RC5-fpm-alpine3.14
+FROM php:8.2.4-fpm
 
 # Additional tools
-RUN apt-get update \
+RUN apt-get -y update \
  && apt-get install -y --no-install-recommends \
     curl \
     openssl \
-    nano
+    vim
 
-# Common php-ext and requirements
-RUN apt-get install -y --no-install-recommends libpq-dev libz-dev \
+# # Common php-ext and requirements
+RUN apt-get install -y --no-install-recommends libpq-dev libz-dev libssl-dev \
  && docker-php-ext-install pcntl \
  && docker-php-ext-install session \
  && docker-php-ext-install phar \
@@ -22,12 +22,9 @@ RUN apt-get install -y --no-install-recommends libpq-dev libz-dev \
 ARG INSTALL_GD=false
 RUN if [ ${INSTALL_GD} = true ]; then \
     # Install gd and requirements
-    apt-get install -y --no-install-recommends libjpeg-dev libpng12-dev libfreetype6-dev \
- && docker-php-ext-configure gd \
-    --enable-gd-native-ttf \
-    --with-jpeg-dir=/usr/lib \
-    --with-freetype-dir=/usr/include/freetype2 \
- && docker-php-ext-install gd \
+  apt-get install -y --no-install-recommends libjpeg-dev libpng-dev libfreetype6-dev  \
+  && docker-php-ext-configure gd \
+  && docker-php-ext-install gd \
 ;fi
 
 #####################################
@@ -37,7 +34,7 @@ RUN if [ ${INSTALL_GD} = true ]; then \
 ARG INSTALL_COMPRESSION=false
 RUN if [ ${INSTALL_COMPRESSION} = true ]; then \
     # Install zip, bz2 and requirements
-    apt-get install -y --no-install-recommends libbz2-dev zlib1g-dev \
+    apt-get install -y --no-install-recommends libzip-dev libbz2-dev zlib1g-dev \
  && docker-php-ext-install zip \
     bz2 \
 ;fi
@@ -57,12 +54,13 @@ RUN if [ ${INSTALL_FTP} = true ]; then \
 # MCrypt:
 #####################################
 
-ARG INSTALL_MCRYPT=false
-RUN if [ ${INSTALL_MCRYPT} = true ]; then \
-    # Install mcrypt and requirements
-    apt-get install -y --no-install-recommends libmcrypt-dev \
- && docker-php-ext-install mcrypt \
-;fi
+# ARG INSTALL_MCRYPT=false
+# RUN if [ ${INSTALL_MCRYPT} = true ]; then \
+#     # Install mcrypt and requirements
+#     apt-get install -y --no-install-recommends libmcrypt-dev \
+#  && docker-php-ext-install mcrypt \
+#  && docker-php-ext-enable mcrypt \
+# ;fi
 
 #####################################
 # Mbstring:
@@ -71,7 +69,8 @@ RUN if [ ${INSTALL_MCRYPT} = true ]; then \
 ARG INSTALL_MBSTRING=false
 RUN if [ ${INSTALL_MBSTRING} = true ]; then \
     # Install mbstring
-    docker-php-ext-install mbstring \
+    apt-get install -y --no-install-recommends libonig-dev \
+    && docker-php-ext-install mbstring \
 ;fi
 
 #####################################
@@ -157,26 +156,26 @@ COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 # tokenizer:
 #####################################
 
-ARG INSTALL_TOKENIZER=false
-RUN if [ ${INSTALL_TOKENIZER} = true ]; then \
-    # Install tokenizer
-    docker-php-ext-install tokenizer \
-;fi
+# ARG INSTALL_TOKENIZER=false
+# RUN if [ ${INSTALL_TOKENIZER} = true ]; then \
+#     # Install tokenizer
+#     docker-php-ext-install tokenizer \
+# ;fi
 
 #####################################
 # json, xml, dom xmlrpc, xsl:
 #####################################
 
-ARG INSTALL_JSON_XML=false
-RUN if [ ${INSTALL_JSON_XML} = true ]; then \
-    # Install xml, dom xmlrpc, xsl, and requirements
-    apt-get install -y --no-install-recommends libxml2-dev libxslt-dev \
- && docker-php-ext-install json \
-    xml \
-    dom \
-    xmlrpc \
-    xsl \
-;fi
+# ARG INSTALL_JSON_XML=false
+# RUN if [ ${INSTALL_JSON_XML} = true ]; then \
+#     # Install xml, dom xmlrpc, xsl, and requirements
+#     apt-get install -y --no-install-recommends libxml2-dev libxslt-dev \
+#  && docker-php-ext-install json \
+#     xml \
+#     dom \
+#     xmlrpc \
+#     xsl \
+# ;fi
 
 #####################################
 # openssl:
@@ -185,7 +184,7 @@ RUN if [ ${INSTALL_JSON_XML} = true ]; then \
 #ARG INSTALL_OPENSSL=false
 #RUN if [ ${INSTALL_OPENSSL} = true ]; then \
 #    # Install openssl
-#    apt-get install -y --no-install-recommends openssl-dev \
+#    apt-ge-get install -y --no-install-recommends openssl-dev \
 #    docker-php-ext-install openssl \
 #;fi
 
@@ -196,7 +195,7 @@ RUN if [ ${INSTALL_JSON_XML} = true ]; then \
 #ARG INSTALL_CURL=false
 #RUN if [ ${INSTALL_CURL} = true ]; then \
 #    # Install curl and requirements
-#    apt-get install -y --no-install-recommends libcurl3 libcurl3-dev \
+#    apt -get-get install -y --no-install-recommends libcurl3 libcurl3-dev \
 #    docker-php-ext-install curl \
 #;fi
 
@@ -211,9 +210,6 @@ RUN if [ ${INSTALL_INTL} = true ]; then \
  && docker-php-ext-configure intl \
  && docker-php-ext-install intl \
 ;fi
-
-# Clear package lists
-RUN rm -rf /var/lib/apt/lists/*
 
 # Permissions
 RUN chown -R root:www-data /var/www/html

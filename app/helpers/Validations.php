@@ -8,12 +8,12 @@ function required($field)
         return false;
     }
 
-    return filter_input(INPUT_POST, $field, FILTER_UNSAFE_RAW);
+    return strip_tags($_POST[$field]);
 }
 
 function email($field)
 {
-    $emailIsValid = filter_input(INPUT_POST, $field, FILTER_VALIDATE_EMAIL);
+    $emailIsValid = strip_tags($_POST[$field]);
 
     if (!$emailIsValid) {
         setFlash($field, 'O campo tem que ser um email válido');
@@ -21,39 +21,48 @@ function email($field)
         return false;
     }
 
-    return filter_input(INPUT_POST, $field, FILTER_UNSAFE_RAW);
+    return $emailIsValid;
 }
-
 
 function uniqueUpdate($field, $param)
 {
-    $email = filter_input(INPUT_POST, $field, FILTER_UNSAFE_RAW);
+    $email = strip_tags($_POST[$field]);
 
-    if (str_contains($param, '=')) {
-        list($fieldToCompare, $value) = explode('=', $param);
-
-        read('users');
-        where($field, $email);
-        orWhere($fieldToCompare, '!=', $value, 'and');
-        $userFound = execute(isFetchAll:false);
-        if ($userFound) {
-            setFlash($field, 'Esse valor já está cadastrado');
-
-            return false;
-        }
-    } else {
-        setFlash($field, 'A validaçao para o unique email no update tem que ter o sinal de =');
+    if (!str_contains($param, '=')) {
+        setFlash($field, 'A validação por e-mail unique no update tem que ter o sinal de =');
 
         return false;
-        // throw new Exception("A validaçao para o unique email no update tem que ter o sinal de =");
     }
+
+    [$fieldToCompare, $value] = explode('=', $param);
+
+    if (!str_contains($fieldToCompare, ',')) {
+        setFlash($field, 'A validação por e-mail unique no update tem que ter o sinal de virgula');
+
+        return false;
+    }
+
+    $table = str_contains($fieldToCompare, 0, stripos($fieldToCompare, ','));
+    $fieldToCompare = str_contains($fieldToCompare, stripos($fieldToCompare, ',') + 1);
+
+    read($table);
+    where($field, $email);
+    orWhere($fieldToCompare, '!=', $value, 'and');
+    $userFound = execute(isFetchAll:false);
+
+    if ($userFound) {
+        setFlash($field, 'Esse valor já está cadastrado');
+
+        return false;
+    }
+
 
     return $email;
 }
 
 function unique($field, $param)
 {
-    $data = filter_input(INPUT_POST, $field, FILTER_UNSAFE_RAW);
+    $data = strip_tags($_POST[$field]);
     $user = findBy($param, $field, $data);
 
     if ($user) {
@@ -65,10 +74,9 @@ function unique($field, $param)
     return $data;
 }
 
-
 function maxlen($field, $param)
 {
-    $data = filter_input(INPUT_POST, $field, FILTER_UNSAFE_RAW);
+    $data = strip_tags($_POST[$field]);
 
     if (strlen($data) > $param) {
         setFlash($field, "Esse campo não pode passar de {$param} caracteres");
@@ -81,11 +89,35 @@ function maxlen($field, $param)
 
 function optional($field)
 {
-    $data = filter_input(INPUT_POST, $field, FILTER_UNSAFE_RAW);
+    $data = strip_tags($_POST[$field]);
 
     if ($data === '') {
         return null;
     }
 
     return $data;
+}
+
+function confirmed($field)
+{
+    if (!isset($_POST[$field], $_POST[$field . '_confirmation'])) {
+        setFlash($field, 'Os campos para atualizar a senha são obrigatórios');
+
+        return false;
+    }
+
+    $value = strip_tags($_POST[$field]);
+    $value_confirmation = strip_tags($_POST[$field . '_confirmation']);
+
+    if ($value !== $value_confirmation) {
+        setFlash($field, 'Os dois campos devem que ser iguais');
+
+        return false;
+    }
+
+    if ($field === 'password') {
+        return password_hash($value, PASSWORD_DEFAULT);
+    }
+
+    return $value;
 }

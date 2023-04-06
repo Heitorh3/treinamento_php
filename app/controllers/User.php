@@ -64,8 +64,6 @@ class User
         tableJoin('photos', 'id', 'left');
         where('users.id', user()->id);
 
-        // read('users');
-        // where('id', user()->id);
         $user = execute(isFetchAll:false);
 
         return [
@@ -76,27 +74,27 @@ class User
 
     public function update($args)
     {
-        if (!isset($args['user'])) {
+        if (!isset($args['user']) || $args['user'] !== user()->id) {
             return redirect('/');
         }
 
         $validated = validate([
             'name' => 'required',
-            'email' => 'required|email|uniqueUpdate:id=' . $args['user'],
+            'email' => 'required|email|uniqueUpdate:users,id=' . $args['user'],
         ], persistInputs:true, checkCsrf:true);
 
         if (!$validated) {
             return redirect('/user/edit/profile');
         }
 
-        $updated = update('users', $validated, ['id' => $args['user']]);
+        $updated = update('users', $validated, ['id' => user()->id]);
 
         if ($updated) {
-            setMessageAndRedirect('updated_success', 'Atualizado com sucesso', '/user/edit/profile');
+            setMessageAndRedirect('success', 'Atualizado com sucesso', '/user/edit/profile');
 
             return;
         }
-        setMessageAndRedirect('updated_error', 'Ocorreu um erro ao atualizar', '/user/edit/profile');
+        setMessageAndRedirect('error', 'Ocorreu um erro ao atualizar', '/user/edit/profile');
     }
 
     public function delete($params)
