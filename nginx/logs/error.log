@@ -1,0 +1,4 @@
+2023/04/03 19:21:30 [error] 7#7: *1 directory index of "/var/www/html/" is forbidden, client: 172.18.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2023/04/03 19:21:58 [error] 7#7: *1 directory index of "/var/www/html/" is forbidden, client: 172.18.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2023/04/03 19:27:17 [error] 7#7: *3 directory index of "/var/www/html/" is forbidden, client: 172.18.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"
+2023/04/03 19:51:16 [error] 7#7: *3 directory index of "/var/www/html/" is forbidden, client: 172.18.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"

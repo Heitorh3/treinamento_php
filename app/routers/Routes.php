@@ -6,6 +6,7 @@ return [
         '/user/[0-9]+/name/[a-z]+' => 'User@edit',
         '/user/[0-9]+/update' => 'User@update',
         '/user/image/update' => 'UserImage@store',
+        '/password/user/[0-9]+' => 'Password@update',
         '/contact' => 'Contact@store',
         '/login' => 'Login@store',
     ],

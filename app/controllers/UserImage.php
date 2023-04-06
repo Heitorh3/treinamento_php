@@ -28,9 +28,9 @@ class UserImage
                 ]);
             }
 
-            $auth->path = $path;
-
             if ($updatedUser) {
+                $auth->path = $path;
+
                 return setMessageAndRedirect('success', 'Photo cadastrada com sucesso!', '/user/edit/profile');
             }
 
