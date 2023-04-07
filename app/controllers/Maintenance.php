@@ -9,7 +9,7 @@ class Maintenance
         $data = [
             'title' => 'Manutenção',
             'subtitle' => 'Site em manutenção.',
-            'description' => 'Pedimos desculptas pelos transtornos! Estamos em processo de manutenção, tente novamente mais tarde.',
+            'description' => 'Pedimos desculpas pelos transtornos! Estamos em processo de manutenção, tente novamente mais tarde.',
         ];
 
         return ['view' => 'maintenance', 'data' => $data];

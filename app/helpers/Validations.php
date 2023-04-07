@@ -26,10 +26,11 @@ function email($field)
 
 function uniqueUpdate($field, $param)
 {
+    // $email = filter_input(INPUT_POST, $field, FILTER_SANITIZE_STRING);
     $email = strip_tags($_POST[$field]);
 
     if (!str_contains($param, '=')) {
-        setFlash($field, 'A validação por e-mail unique no update tem que ter o sinal de =');
+        setFlash($field, 'A validaçao para o unique email no update tem que ter o sinal de =');
 
         return false;
     }
@@ -37,19 +38,18 @@ function uniqueUpdate($field, $param)
     [$fieldToCompare, $value] = explode('=', $param);
 
     if (!str_contains($fieldToCompare, ',')) {
-        setFlash($field, 'A validação por e-mail unique no update tem que ter o sinal de virgula');
+        setFlash($field, 'A validaçao para o unique email no update tem que ter a virgula');
 
         return false;
     }
 
-    $table = str_contains($fieldToCompare, 0, stripos($fieldToCompare, ','));
-    $fieldToCompare = str_contains($fieldToCompare, stripos($fieldToCompare, ',') + 1);
+    $table = substr($fieldToCompare, 0, strpos($fieldToCompare, ','));
+    $fieldToCompare = substr($fieldToCompare, strpos($fieldToCompare, ',') + 1);
 
     read($table);
     where($field, $email);
     orWhere($fieldToCompare, '!=', $value, 'and');
     $userFound = execute(isFetchAll:false);
-
     if ($userFound) {
         setFlash($field, 'Esse valor já está cadastrado');
 

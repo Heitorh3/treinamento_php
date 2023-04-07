@@ -18,7 +18,8 @@ class Login
     public function store()
     {
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-        $password = filter_input(INPUT_POST, 'password', FILTER_UNSAFE_RAW);
+        $password = strip_tags($_POST['password']);
+        // $password = filter_input(INPUT_POST, 'password', FILTER_UNSAFE_RAW);
 
         if (empty($password) || empty($email)) {
             return setMessageAndRedirect('message', 'Usuário ou senha inválidos', '/login');

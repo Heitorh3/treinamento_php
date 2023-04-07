@@ -74,14 +74,14 @@ class User
 
     public function update($args)
     {
-        if (!isset($args['user']) || $args['user'] !== user()->id) {
+        if (!isset($args['user']) || intval($args['user']) !== user()->id) {
             return redirect('/');
         }
 
         $validated = validate([
             'name' => 'required',
             'email' => 'required|email|uniqueUpdate:users,id=' . $args['user'],
-        ], persistInputs:true, checkCsrf:true);
+        ]);
 
         if (!$validated) {
             return redirect('/user/edit/profile');
@@ -90,11 +90,9 @@ class User
         $updated = update('users', $validated, ['id' => user()->id]);
 
         if ($updated) {
-            setMessageAndRedirect('success', 'Atualizado com sucesso', '/user/edit/profile');
-
-            return;
+            return setMessageAndRedirect('updated_success', 'Atualizado com sucesso', '/user/edit/profile');
         }
-        setMessageAndRedirect('error', 'Ocorreu um erro ao atualizar', '/user/edit/profile');
+        setMessageAndRedirect('updated_error', 'Ocorreu um erro ao atualizar', '/user/edit/profile');
     }
 
     public function delete($params)

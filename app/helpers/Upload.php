@@ -78,8 +78,8 @@ function upload(int $newWidth, int $newHeight, string $folder, string $type = 'r
         imagecopyresampled(
             $dst,
             $src,
-            0 - ($newWidth - $thumbWidth),
-            0 - ($newHeight - $thumbHeight),
+            0, //(int)round(($newWidth - $thumbWidth)),
+            0 - (int)round(($newHeight - $thumbHeight)),
             0,
             0,
             $newWidth,

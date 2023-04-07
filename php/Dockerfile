@@ -24,6 +24,9 @@ RUN if [ ${INSTALL_GD} = true ]; then \
     # Install gd and requirements
   apt-get install -y --no-install-recommends libjpeg-dev libpng-dev libfreetype6-dev  \
   && docker-php-ext-configure gd \
+    --enable-gd \
+    --with-jpeg=/usr/lib \
+    --with-freetype=/usr/include/freetype2 \
   && docker-php-ext-install gd \
 ;fi
 
@@ -181,12 +184,13 @@ COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 # openssl:
 #####################################
 
-#ARG INSTALL_OPENSSL=false
-#RUN if [ ${INSTALL_OPENSSL} = true ]; then \
-#    # Install openssl
-#    apt-ge-get install -y --no-install-recommends openssl-dev \
-#    docker-php-ext-install openssl \
-#;fi
+# ARG INSTALL_OPENSSL=false
+RUN if [ ${INSTALL_OPENSSL} = true ]; then \
+   # Install openssl
+   apt-get update \
+	&& apt-get install -y --no-install-recommends openssl \
+    docker-php-ext-install openssl \
+;fi
 
 #####################################
 # curl:
@@ -213,9 +217,13 @@ RUN if [ ${INSTALL_INTL} = true ]; then \
 
 # Permissions
 RUN chown -R root:www-data /var/www/html
-RUN chmod u+rwx,g+rx,o+rx /var/www/html
+RUN chmod u+rwx,g+rwx,o+rx /var/www/html
 RUN find /var/www/html -type d -exec chmod u+rwx,g+rx,o+rx {} +
 RUN find /var/www/html -type f -exec chmod u+rw,g+rw,o+r {} +
+
+# Clean
+RUN apt-get clean
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/*
 
 CMD ["php-fpm"]
 
