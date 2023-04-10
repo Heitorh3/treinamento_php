@@ -78,8 +78,8 @@ function upload(int $newWidth, int $newHeight, string $folder, string $type = 'r
         imagecopyresampled(
             $dst,
             $src,
-            0, //(int)round(($newWidth - $thumbWidth)),
-            0 - (int)round(($newHeight - $thumbHeight)),
+            0 - ($newWidth - $thumbWidth) / 2,
+            0 - ($newHeight - $thumbHeight) / 2,
             0,
             0,
             $newWidth,
@@ -89,7 +89,8 @@ function upload(int $newWidth, int $newHeight, string $folder, string $type = 'r
         );
     }
 
-    $path = $imagesave($dst, $folder . DIRECTORY_SEPARATOR . rand() . '.' . getExtension($fileName));
+    $path = $folder . DIRECTORY_SEPARATOR . rand() . '.' . getExtension($fileName);
+    $imagesave($dst, $path);
 
     return $path;
 }
