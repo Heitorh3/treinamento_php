@@ -48,7 +48,7 @@ Docker run:
 
 ```
 
-## Comando SQL para criar a tabela para
+## Comando SQL para criar a criação da tabela
 
 ```
 CREATE TABLE `users` (
@@ -58,6 +58,13 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 0 DEFAULT CHARSET = utf8;
 
+CREATE TABLE `photos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userId` int(11) DEFAULT 0,
+  `path` varchar(45) DEFAULT NULL,  
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`userId`) REFERENCES `users`(`id`)
+)ENGINE = InnoDB AUTO_INCREMENT = 0 DEFAULT CHARSET = utf8;
 
 INSERT INTO users (Name,email) VALUES ('Heitor Neto', 'heitorh3@gmail.com');
 SELECT * FROM users;

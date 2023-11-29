@@ -56,3 +56,9 @@
 2023/04/08 20:56:55 [warn] 7#7: *60 a client request body is buffered to a temporary file /var/cache/nginx/client_temp/0000000015, client: 172.26.0.1, server: localhost, request: "POST /user/image/update HTTP/1.1", host: "localhost:8080", referrer: "http://localhost:8080/user/edit/profile"
 2023/04/08 20:57:29 [warn] 7#7: *60 a client request body is buffered to a temporary file /var/cache/nginx/client_temp/0000000016, client: 172.26.0.1, server: localhost, request: "POST /user/image/update HTTP/1.1", host: "localhost:8080", referrer: "http://localhost:8080/user/edit/profile"
 2023/04/10 10:43:26 [warn] 7#7: *2 a client request body is buffered to a temporary file /var/cache/nginx/client_temp/0000000001, client: 172.26.0.1, server: localhost, request: "POST /user/image/update HTTP/1.1", host: "localhost:8080", referrer: "http://localhost:8080/user/edit/profile"
+2023/11/29 15:58:53 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/default.conf:17
+2023/11/29 15:59:26 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/default.conf:17
+2023/11/29 15:59:39 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/default.conf:17
+2023/11/29 16:02:05 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/default.conf:17
+2023/11/29 17:12:59 [warn] 7#7: *1 a client request body is buffered to a temporary file /var/cache/nginx/client_temp/0000000001, client: 172.30.0.1, server: localhost, request: "POST /user/image/update HTTP/1.1", host: "localhost", referrer: "http://localhost/user/edit/profile"
+2023/11/29 17:16:15 [warn] 7#7: *40 a client request body is buffered to a temporary file /var/cache/nginx/client_temp/0000000002, client: 172.30.0.1, server: localhost, request: "POST /user/image/update HTTP/1.1", host: "localhost", referrer: "http://localhost/user/edit/profile"

@@ -1,4 +1,4 @@
-version: '3'
+version: '3.4'
 services:
   # Web service layer
   nginx:
@@ -7,7 +7,7 @@ services:
       context: ./nginx
       dockerfile: Dockerfile
     volumes:
-      - '.:/var/www/html/'  
+      - '.:/var/www/html/'
       - ${NGINX_HOST_LOG_PATH}:/var/log/nginx
       - ${NGINX_SITES_PATH}:/etc/nginx/conf.d
     ports:
@@ -19,7 +19,7 @@ services:
       - phpnet
   # Application service layer
   php:
-    container_name: server_php   
+    container_name: server_php
     build:
       context: ./php
       args:
@@ -42,7 +42,7 @@ services:
         - INSTALL_COMPOSER=${PHP_INSTALL_COMPOSER}
       dockerfile: Dockerfile
     volumes:
-      - '.:/var/www/html/'          
+      - '.:/var/www/html/'
     ports:
       - '9000:9000'
     networks:
@@ -50,21 +50,22 @@ services:
 
   # # Data persistence service layer
   mysql:
-     container_name: server_mysql
-     build:
+    container_name: server_mysql
+    build:
       context: ./mysql
       dockerfile: Dockerfile
-     volumes:
-       - ${DATABASE_VOLUME}:/var/lib/mysql       
-     ports:
-       - "${DATABASE_PORT}:3306"
-     environment:       
-       - MYSQL_DATABASE=${DATABASE_NAME}
-       - MYSQL_USER=${DATABASE_USER}
-       - MYSQL_PASSWORD=${DATABASE_PASSWORD}
-       - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}
-     networks:
+    volumes:
+      - ${DATABASE_VOLUME}:/var/lib/mysql
+    ports:
+      - "${DATABASE_PORT}:3306"
+    environment:
+      - MYSQL_DATABASE=${DATABASE_NAME}
+      - MYSQL_USER=${DATABASE_USER}
+      - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}
+    command: mysqld --default-authentication-plugin=caching_sha2_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci #command: --disable-partition-engine-check
+    networks:
       - phpnet
 networks:
-    phpnet:
-        driver: bridge
+  phpnet:
+    driver: bridge

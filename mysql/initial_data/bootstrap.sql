@@ -1,4 +1,4 @@
-CREATE DATABASE treinamentoPhp;
+CREATE DATABASE IF NOT EXISTS treinamentoPhp;
 USE treinamentoPhp;
 
 CREATE TABLE `users` (

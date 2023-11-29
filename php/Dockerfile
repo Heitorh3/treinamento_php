@@ -2,18 +2,19 @@ FROM php:8.2.4-fpm
 
 # Additional tools
 RUN apt-get -y update \
- && apt-get install -y --no-install-recommends \
+    && apt-get install -y --no-install-recommends \
     curl \
     openssl \
     vim
 
 # # Common php-ext and requirements
 RUN apt-get install -y --no-install-recommends libpq-dev libz-dev libssl-dev \
- && docker-php-ext-install pcntl \
- && docker-php-ext-install session \
- && docker-php-ext-install phar \
- && docker-php-ext-install iconv \
- && docker-php-ext-install pdo
+    && docker-php-ext-install pcntl \
+    && docker-php-ext-install session \
+    && docker-php-ext-install phar \
+    && docker-php-ext-install iconv \
+    && docker-php-ext-install pdo \
+    && docker-php-ext-install pdo_mysql
 
 #####################################
 # GD:
@@ -22,13 +23,13 @@ RUN apt-get install -y --no-install-recommends libpq-dev libz-dev libssl-dev \
 ARG INSTALL_GD=false
 RUN if [ ${INSTALL_GD} = true ]; then \
     # Install gd and requirements
-  apt-get install -y --no-install-recommends libjpeg-dev libpng-dev libfreetype6-dev  \
-  && docker-php-ext-configure gd \
+    apt-get install -y --no-install-recommends libjpeg-dev libpng-dev libfreetype6-dev  \
+    && docker-php-ext-configure gd \
     --enable-gd \
     --with-jpeg=/usr/lib \
     --with-freetype=/usr/include/freetype2 \
-  && docker-php-ext-install gd \
-;fi
+    && docker-php-ext-install gd \
+    ;fi
 
 #####################################
 # compression:
@@ -38,9 +39,9 @@ ARG INSTALL_COMPRESSION=false
 RUN if [ ${INSTALL_COMPRESSION} = true ]; then \
     # Install zip, bz2 and requirements
     apt-get install -y --no-install-recommends libzip-dev libbz2-dev zlib1g-dev \
- && docker-php-ext-install zip \
+    && docker-php-ext-install zip \
     bz2 \
-;fi
+    ;fi
 
 #####################################
 # FTP:
@@ -50,8 +51,8 @@ ARG INSTALL_FTP=false
 RUN if [ ${INSTALL_FTP} = true ]; then \
     # Install ftp and requirements
     apt-get install -y --no-install-recommends libssl-dev \
- && docker-php-ext-install ftp \
-;fi
+    && docker-php-ext-install ftp \
+    ;fi
 
 #####################################
 # MCrypt:
@@ -74,7 +75,7 @@ RUN if [ ${INSTALL_MBSTRING} = true ]; then \
     # Install mbstring
     apt-get install -y --no-install-recommends libonig-dev \
     && docker-php-ext-install mbstring \
-;fi
+    ;fi
 
 #####################################
 # PDO_MYSQL:
@@ -84,7 +85,7 @@ ARG INSTALL_PDO_MYSQL=false
 RUN if [ ${INSTALL_PDO_MYSQL} = true ]; then \
     # Install pdo_mysql
     docker-php-ext-install pdo_mysql \
-;fi
+    ;fi
 
 #####################################
 # PDO_POSTGRESQL:
@@ -94,7 +95,7 @@ ARG INSTALL_PDO_POSTGRESQL=false
 RUN if [ ${INSTALL_PDO_POSTGRESQL} = true ]; then \
     # Install pdo_pgsql
     docker-php-ext-install pdo_pgsql \
-;fi
+    ;fi
 
 #####################################
 # Mysqli Modifications:
@@ -104,7 +105,7 @@ ARG INSTALL_MYSQLI=false
 RUN if [ ${INSTALL_MYSQLI} = true ]; then \
     # Install mysqli
     docker-php-ext-install mysqli \
-;fi
+    ;fi
 
 #####################################
 # bcmath:
@@ -114,7 +115,7 @@ ARG INSTALL_BCMATH=false
 RUN if [ ${INSTALL_BCMATH} = true ]; then \
     # Install bcmath extension
     docker-php-ext-install bcmath \
-;fi
+    ;fi
 
 #####################################
 # Opcache:
@@ -123,7 +124,7 @@ RUN if [ ${INSTALL_BCMATH} = true ]; then \
 ARG INSTALL_OPCACHE=false
 RUN if [ ${INSTALL_OPCACHE} = true ]; then \
     docker-php-ext-install opcache \
-;fi
+    ;fi
 
 # Copy opcache configration
 COPY ./opcache.ini /usr/local/etc/php/conf.d/opcache.ini
@@ -137,7 +138,7 @@ RUN if [ ${INSTALL_XDEBUG} = true ]; then \
     # Install the xdebug
     pecl install xdebug \
     docker-php-ext-enable xdebug \
-;fi
+    ;fi
 
 # Copy xdebug configration
 COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
@@ -150,7 +151,7 @@ ARG INSTALL_COMPOSER=false
 RUN if [ ${INSTALL_COMPOSER} = true ]; then \
     # Install the composer
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-;fi
+    ;fi
 
 # Copy xdebug configration
 COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
@@ -186,11 +187,11 @@ COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 # ARG INSTALL_OPENSSL=false
 RUN if [ ${INSTALL_OPENSSL} = true ]; then \
-   # Install openssl
-   apt-get update \
-	&& apt-get install -y --no-install-recommends openssl \
+    # Install openssl
+    apt-get update \
+    && apt-get install -y --no-install-recommends openssl \
     docker-php-ext-install openssl \
-;fi
+    ;fi
 
 #####################################
 # curl:
@@ -211,9 +212,9 @@ ARG INSTALL_INTL=false
 RUN if [ ${INSTALL_INTL} = true ]; then \
     # Install intl and requirements
     apt-get install -y --no-install-recommends zlib1g-dev libicu-dev g++ \
- && docker-php-ext-configure intl \
- && docker-php-ext-install intl \
-;fi
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install intl \
+    ;fi
 
 # Permissions
 RUN chown -R root:www-data /var/www/html
