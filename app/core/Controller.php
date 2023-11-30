@@ -9,7 +9,7 @@ function loadController($matchedUri, $params)
         throw new Exception("Controller '$controllerName' não foi encontrado");
     }
 
-    $controllerInstance = new $controllerWithNamespace;
+    $controllerInstance = new $controllerWithNamespace();
     if (!method_exists($controllerInstance, $methodName)) {
         throw new Exception("O método {$methodName} não existe no controller {$controllerName}");
     }

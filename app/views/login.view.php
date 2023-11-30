@@ -1,19 +1,27 @@
-<?php $this->layout('index.view', ['title' => $title]) ?>
+<?php $this->layout('index.view', [ 'title' => $title ]) ?>
 
 <?php if (!logged()) : ?>
-    <h2>Login</h2>
-    <?php echo getFlash('message'); ?>
-    
-    <form action="/login" method="POST">
+<h2>Login</h2>
 
-        <label for="email">Email</label>
-        <input type="text" name="email" id="email" value="heitorh3@gmail.com"/>
+<?php echo getFlash('message');
+    ?>
 
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" value="rasmuslerdorf" />
+<form  action='/login' method='POST'>
+  <div class='mb-3'>
+    <label for='email' class='form-label'>Email address</label>
+    <input type='email' name='email' class='form-control' id='email' aria-describedby='emailHelp' value='heitorh3@gmail.com'>
+    <div id='emailHelp' class='form-text'>Nunca compartilharemos seu e-mail com mais ninguém</div>
+  </div>
 
-        <button type="submit">Login</button>
-    </form>
+  <div class='mb-3'>
+    <label for='password' class='form-label'>Password</label>
+    <input type='password' name='password' class='form-control' id='password' value='rasmuslerdorf'>
+  </div>
+
+  <button type='submit' class='btn btn-primary'>Submit</button>
+</form>
+
 <?php else: ?>
-    <h2>Você já esta logado no sistema.</h2>
-<?php endif; ?>
+  <h2>Você já esta logado no sistema.</h2>
+<?php endif;
+?>

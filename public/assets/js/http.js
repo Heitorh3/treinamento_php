@@ -3,9 +3,9 @@ import axios from 'axios';
 const axiosConfig = axios.create({
 	headers: {
 		'Content-type': 'application/json',
-		HTTP_X_REQUESTED_WITH: 'XMLHttpRequest',
+		'X-Requested-With': 'XMLHttpRequest'
 	},
-	baseURL: 'http://localhost:9000',
+	baseURL: 'http://localhost:8080',
 });
 
 export default axiosConfig;

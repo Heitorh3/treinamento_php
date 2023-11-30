@@ -33,6 +33,7 @@ class User
     {
         $validate = validate([
             'name' => 'required',
+            'cpf' => 'required|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'maxlen:15|required',
         ], persistInputs:true, checkCsrf:true);
@@ -60,7 +61,7 @@ class User
             redirect('/');
         }
 
-        read('users', 'users.id,name,email,password,path');
+        read('users', 'users.id,name,email,password,cpf,path');
         tableJoin('photos', 'id', 'left');
         where('users.id', user()->id);
 
@@ -80,6 +81,7 @@ class User
 
         $validated = validate([
             'name' => 'required',
+            'cpf' => 'required|unique:users',
             'email' => 'required|email|uniqueUpdate:users,id=' . $args['user'],
         ]);
 

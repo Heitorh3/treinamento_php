@@ -4,7 +4,7 @@ module.exports = {
      mode: process.env.NODE_ENV,
      devtool: process.env.NODE_ENV == 'development' ? 'source-map' : '',
      entry: {
-          app: ['@babel/polyfill','./public/assets/js/app.js'],
+          app: ['@babel/polyfill', './public/assets/js/app.js'],
      },
      output: {
           path: path.resolve(__dirname, 'public'),

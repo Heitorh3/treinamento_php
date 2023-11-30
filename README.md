@@ -72,4 +72,9 @@ SELECT * FROM users;
 ALTER TABLE users ADD `password` VARCHAR(255) NOT NULL AFTER `email`;
 
 UPDATE users SET password = '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq' WHERE id = 1;
+
+ALTER TABLE users ADD `cpf` VARCHAR(15) NOT NULL AFTER `name`;
+
+ALTER TABLE users 
+ADD CONSTRAINT UC_Users UNIQUE (id,cpf);
 ```
