@@ -14,6 +14,7 @@ class UserImage
 
             $image->make()
                 ->resize(400, null, true)
+                ->crop(100, 100)
                 ->execute();
             
             $info = $image->get_image_info();
@@ -28,7 +29,7 @@ class UserImage
                     ['path' => $info['path']],
                     ['userId' => $photoUser->id]
                 );
-                @unlink($photoUser->path);
+                remove_file($photoUser->path);
             } else {
                 $updatedUser = create('photos', [
                     'userId' => $auth->id,
