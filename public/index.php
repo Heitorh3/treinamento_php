@@ -29,8 +29,17 @@ try {
     // Create new Plates instance
     $templates = new League\Plates\Engine( VIEWS );
 
+    // Create a twig  instance
+    // $loader = new \Twig\Loader\ArrayLoader([VIEWS]);
+    // $loader = new \Twig\Loader\FilesystemLoader('../app/views');
+
+    // $twig = new \Twig\Environment($loader);
+    
     // Render a template
     echo $templates->render( $data[ 'view' ].'.view', $data[ 'data' ] );
+
+    // Render a template twig
+    // echo $twig->render($data['view'].'.view.php', $data['data']);
 
     //extract( $data[ 'data' ] );
 

@@ -2,13 +2,21 @@
 
 namespace app\Controllers;
 
+use core\facades\UploadImage;
+
 class UserImage
 {
     public function store()
     {
-        try {
-            $path = upload(640, 480, 'assets/images', 'crop');
+        try {            
+            $image = new UploadImage();
             $auth = user();
+
+            $image->make()
+                ->resize(400, null, true)
+                ->execute();
+            
+            $info = $image->get_image_info();
 
             read('photos');
             where('userId', $auth->id);
@@ -17,19 +25,19 @@ class UserImage
             if ($photoUser) {
                 $updatedUser = update(
                     'photos',
-                    ['path' => $path],
+                    ['path' => $info['path']],
                     ['userId' => $photoUser->id]
                 );
                 @unlink($photoUser->path);
             } else {
                 $updatedUser = create('photos', [
                     'userId' => $auth->id,
-                    'path' => $path,
+                    'path' => $info['path'],
                 ]);
             }
 
             if ($updatedUser) {
-                $auth->path = $path;
+                $auth->path = $info['path'];
 
                 return setMessageAndRedirect('success', 'Photo cadastrada com sucesso!', '/user/edit/profile');
             }

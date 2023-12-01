@@ -10,7 +10,7 @@
 <?php echo getFlash('error', 'background-color:red;color:white'); ?>
 
 <?php if($user->path): ?>
-    <img src="/<?php echo $user->path ?>" alt="<?php echo $user->name ?>" />
+    <img src="<?php echo $user->path ?>" alt="<?php echo $user->name ?>" />
 <?php endif; ?>
 
 <form class="row g-3" method="post" action="/user/<?php echo $user->id ?>/update">

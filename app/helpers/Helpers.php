@@ -17,3 +17,13 @@ function ds($data)
     }
     dd($data);
 }
+
+function public_path()
+{
+    return $_SERVER['DOCUMENT_ROOT'];
+}
+
+function remove_file(string $file)
+{
+    @unlink(public_path() . $file);
+}

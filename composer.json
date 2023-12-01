@@ -12,12 +12,15 @@
     "league/plates": "^3.4",
     "vlucas/phpdotenv": "^5.3",
     "doctrine/inflector": "2.0.4",
-    "phpmailer/phpmailer": "^6.8"
+    "phpmailer/phpmailer": "^6.8",
+    "twig/twig": "^3.0",
+    "intervention/image": "^2.7"
   },
   "autoload": {
     "files": [
       "app/routers/Router.php",
       "app/core/Controller.php",
+      "app/core/facades/UploadImage.php",
       "app/database/Connect.php",
       "app/database/Queries.php",
       "app/helpers/Redirect.php",

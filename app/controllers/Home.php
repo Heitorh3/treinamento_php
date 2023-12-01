@@ -17,7 +17,7 @@ class Home
         paginate(5);
 
         $users = execute();
-        // ds( $users );
+        // ds( $users->rows);
         $data = [
             'title' => 'Home',
             'subtitle' => 'Welcome to the home page',

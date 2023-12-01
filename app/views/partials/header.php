@@ -19,7 +19,7 @@
             <?php if (logged()) : ?>
                 
                 <?php if (user()->path) : ?>
-                  <img src="/<?php echo user()->path ?>" class="rounded-circle" width="50" height="40">
+                  <img src="<?php echo user()->path ?>" class="rounded-circle" width="50" height="40">
                 <?php endif; ?>
                 
                 <?php echo user()->name; ?> | <a href="/logout">Logout</a> |
