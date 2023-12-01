@@ -36,7 +36,7 @@ class User
             'cpf' => 'required|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'maxlen:15|required',
-        ], persistInputs:true, checkCsrf:true);
+        ], persistInputs: true, checkCsrf: true);
 
         if (!$validate) {
             return redirect('/user/create');
@@ -65,7 +65,7 @@ class User
         tableJoin('photos', 'id', 'left');
         where('users.id', user()->id);
 
-        $user = execute(isFetchAll:false);
+        $user = execute(isFetchAll: false);
 
         return [
             'view' => 'edit',
@@ -82,7 +82,7 @@ class User
         $validated = validate([
             'name' => 'required',
             'cpf' => 'required|unique:users',
-            'email' => 'required|email|uniqueUpdate:users,id=' . $args['user'],
+            'email' => 'required|email|uniqueUpdate:users,id='.$args['user'],
         ]);
 
         if (!$validated) {
@@ -113,6 +113,6 @@ class User
             setMessageAndRedirect('error', 'Ocorreu um erro ao tentar apagar o registro, faça contato com o administrador', '/');
         }
 
-        setMessageAndRedirect('success', 'Registro apagado/deletado com sucesso!', '/');
+        setMessageAndRedirect('success', 'Registro apagado com sucesso!', '/');
     }
 }

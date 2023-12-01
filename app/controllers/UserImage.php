@@ -8,20 +8,21 @@ class UserImage
 {
     public function store()
     {
-        try {            
+        try {
             $image = new UploadImage();
             $auth = user();
 
             $image->make()
                 ->resize(400, null, true)
-                ->crop(100, 100)
+                ->fit(400, null, true)
+                ->crop(200, 200)
                 ->execute();
-            
+
             $info = $image->get_image_info();
 
             read('photos');
             where('userId', $auth->id);
-            $photoUser = execute(isFetchAll:false);
+            $photoUser = execute(isFetchAll: false);
 
             if ($photoUser) {
                 $updatedUser = update(
@@ -44,7 +45,7 @@ class UserImage
             }
 
             return setMessageAndRedirect('error', 'Problema ao cadastrar a sua foto!', '/user/edit/profile');
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return setMessageAndRedirect('error', $e->getMessage(), '/user/edit/profile');
         }
     }

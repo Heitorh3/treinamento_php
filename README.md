@@ -53,8 +53,8 @@ Docker run:
 ```
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
+  `name` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL UNIQUE,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 0 DEFAULT CHARSET = utf8;
 
@@ -66,14 +66,14 @@ CREATE TABLE `photos` (
   FOREIGN KEY (`userId`) REFERENCES `users`(`id`)
 )ENGINE = InnoDB AUTO_INCREMENT = 0 DEFAULT CHARSET = utf8;
 
-INSERT INTO users (Name,email) VALUES ('Heitor Neto', 'heitorh3@gmail.com');
+INSERT INTO users (name,email) VALUES ('Heitor Neto', 'heitorh3@gmail.com');
 SELECT * FROM users;
 
 ALTER TABLE users ADD `password` VARCHAR(255) NOT NULL AFTER `email`;
 
 UPDATE users SET password = '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq' WHERE id = 1;
 
-ALTER TABLE users ADD `cpf` VARCHAR(15) NOT NULL AFTER `name`;
+ALTER TABLE users ADD `cpf` VARCHAR(15) NOT NULL UNIQUE AFTER `name`;
 
 ALTER TABLE users 
 ADD CONSTRAINT UC_Users UNIQUE (id,cpf);

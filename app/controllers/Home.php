@@ -11,7 +11,7 @@ class Home
         read('users');
 
         if ($search) {
-            search([ 'Name' => $search ]);
+            search(['Name' => $search]);
         }
 
         paginate(5);
@@ -26,6 +26,6 @@ class Home
             'users' => $users,
         ];
 
-        return [ 'view' => 'home', 'data' => $data ];
+        return ['view' => 'home', 'data' => $data];
     }
 }
