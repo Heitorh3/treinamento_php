@@ -1,3 +1,42 @@
+/* Default styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;500&family=Roboto:wght@100;400;700&display=swap');
+
+* {
+  margin:0;
+  padding:0;
+  outline:0;
+  box-sizing:border-box;
+}
+*:focus {
+  outline: 0;
+}
+body {
+  font: 14px, 'Poppins', sans-serif;
+}
+button:focus {
+  outline: none;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+a:hover {
+  transition: .3s;
+  color: #87CEFA;
+}
+img:hover{
+  cursor: pointer;
+}
+ul {
+  list-style: none;
+}
+button {
+  cursor: pointer;
+} 
 .invalid-field {
   width: 100%;
   margin-top: 0.25rem;
