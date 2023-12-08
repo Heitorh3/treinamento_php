@@ -16,7 +16,7 @@
         <div id="header">                
             {% include 'partials/header.html' %}                
         </div>
-    
+        {{ getCsfr() | raw}}
         <div id="content" class="container mt-2">{% block content %}{% endblock %}</div>
 
         <div id="footer">
@@ -28,7 +28,6 @@
         </div>
                     
         <script src="/app.js"></script>
-        <script src="/assets/js/bootstrap/5.3.2/bootstrap.bundle.min.js"></script>
-        
+        <script src="/assets/js/bootstrap/5.3.2/bootstrap.bundle.min.js"></script>        
     </body>
 </html>

@@ -16,8 +16,7 @@
     {% endfor %}
 </div>
 
-<form class="row g-3" method="post" action="/user/{{user().id}}/update">
-    {{ getCsfr() | raw}}    
+<form class="row g-3" method="post" action="/user/{{user().id}}/update">    
     <div class="col-md-6">
         <label class="form-label" for="name">Nome:</label>
         <input class="form-control" type="text" name="name" id="name" value="{{user().name}}" required/>
@@ -47,13 +46,13 @@
         <div class="col-md-3">
             <label class="form-label" for="password">Password:</label>
             <input class="form-control" type="password" name="password" id="password" required>
-            {{validation('password')}}
+            {{validation('password') | raw}}
         </div>
 
         <div class="col-md-3">
             <label class="form-label" for="password_confirmation">Password Confirmation:</label>
             <input class="form-control" type="password" name="password_confirmation" id="password_confirmation" required>
-            {{validation('password_confirmation')}}
+            {{validation('password_confirmation') | raw}}
         </div>
 
         <div class="col-12">
@@ -62,48 +61,37 @@
     </form>
 <hr>
 
-<form class="row g-3" action="/user/image/update" method="post" enctype="multipart/form-data">
-    <div x-data="previewImage()">
-        <div class="mb-2">
-            <template x-if="imageUrl">
-                <img :src="imageUrl" class="object-cover rounded border border-gray-200" style="width: 100px; height: 100px;">
-            </template>
+<form class="row g-3" action="/user/image/update" method="post" enctype="multipart/form-data">    
+    <label class="mb-2" for="avatar">
+       
+        {% if user().path %}
+            <img src="{{user().path}}" id="image" class="img-fluid rounded-circle" 
+                width="100px" height="100px">
+        {% else %}
+            <img src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
+                id="image" class="img-fluid rounded-circle" 
+                style="width: 100px; height: 100px;">
+        {% endif %}
 
-            <template x-if="!imageUrl">
-                <div class="border rounded border-gray-200 bg-gray-100" style="width: 100px; height: 100px;"></div>
-            </template>
-        </div>
         <div class="col-md-3">
-            <div class="mb-3">
-                <input type="file" name="file" class="form-control" aria-label="Avatar" accept="image/gif, image/png, image/jpeg"
-                   @change="fileChosen" required>
+            <div class="mb-2">
+                <input type="file" name="file" id="avatar" 
+                    hidden aria-label="Avatar" 
+                    accept="image/gif, image/png, image/jpeg">
             </div>
         </div>
-    
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary">Alterar foto</button>
-        </div>  
-    </div>
+    </label>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Alterar foto</button>
+    </div>  
 </form>
 <script>
-    function previewImage() {
-        return {
-            imageUrl: "",
-
-            fileChosen(event) {
-                this.fileToDataUrl(event, (src) => (this.imageUrl = src));
-            },
-
-            fileToDataUrl(event, callback) {
-                if (!event.target.files.length) return;
-
-                let file = event.target.files[0],
-                    reader = new FileReader();
-
-                reader.readAsDataURL(file);
-                reader.onload = (e) => callback(e.target.result);
-            },
-        };
+    avatar.onchange = event => {
+        const [file] = avatar.files
+        if (file) {
+            image.src = URL.createObjectURL(file)
+        }
     }
 </script>
 {% endblock %}

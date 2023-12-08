@@ -19,7 +19,7 @@
             {% if user() %}
                 
                 {% if user().path %}
-                  <img src="{{user().path}}" class="rounded-circle" width="50" height="40">
+                  <img src="{{user().path}}" class="img-fluid rounded-circle" width="50" height="40">
                 {% endif %}
                 
                 {{ user().name }} |
