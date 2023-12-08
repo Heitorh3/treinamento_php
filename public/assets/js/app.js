@@ -1,6 +1,13 @@
-import deleteButtonClick from "./delete";
-import users from "./users";
+import mask from '@alpinejs/mask';
+import Alpine from 'alpinejs';
 
-users();
+import deleteButtonClick from "./delete";
+
+window.Alpine = Alpine
+
+Alpine.plugin(mask)
+Alpine.start()
+
+// users();
 
 deleteButtonClick();

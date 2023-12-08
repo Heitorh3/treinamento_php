@@ -1,9 +1,11 @@
 <?php
 
+use app\helpers\ValidationMessage;
+
 function required($field)
 {
     if ($_POST[$field] === '') {
-        setFlash($field, 'O campo é obrigatório');
+        ValidationMessage::add($field, 'O campo é obrigatório!');
 
         return false;
     }
@@ -13,24 +15,23 @@ function required($field)
 
 function email($field)
 {
-    $emailIsValid = strip_tags($_POST[$field]);
+    $email = strip_tags($_POST[$field], FILTER_SANITIZE_EMAIL);
 
-    if (!$emailIsValid) {
-        setFlash($field, 'O campo tem que ser um email válido');
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        ValidationMessage::add($field, 'O campo tem que ter um email válido!');
 
         return false;
     }
 
-    return $emailIsValid;
+    return $email;
 }
 
 function uniqueUpdate($field, $param)
 {
-    // $email = filter_input(INPUT_POST, $field, FILTER_SANITIZE_STRING);
-    $email = strip_tags($_POST[$field]);
+    $email = strip_tags($_POST[$field], FILTER_SANITIZE_EMAIL);
 
     if (!str_contains($param, '=')) {
-        setFlash($field, 'A validaçao para o unique email no update tem que ter o sinal de =');
+        ValidationMessage::add($field, 'A validaçao para o unique email no update tem que ter o sinal de =');
 
         return false;
     }
@@ -38,7 +39,7 @@ function uniqueUpdate($field, $param)
     [$fieldToCompare, $value] = explode('=', $param);
 
     if (!str_contains($fieldToCompare, ',')) {
-        setFlash($field, 'A validaçao para o unique email no update tem que ter a virgula');
+        ValidationMessage::add($field, 'A validaçao para o unique email no update tem que ter a virgula!');
 
         return false;
     }
@@ -49,24 +50,58 @@ function uniqueUpdate($field, $param)
     read($table);
     where($field, $email);
     orWhere($fieldToCompare, '!=', $value, 'and');
-    $userFound = execute(isFetchAll:false);
+    $userFound = execute(isFetchAll: false);
+
     if ($userFound) {
-        setFlash($field, 'Esse valor já está cadastrado');
+        ValidationMessage::add($field, 'Esse valor já está cadastrado!');
 
         return false;
     }
 
-
     return $email;
+}
+
+function cpf($field)
+{
+    $cpf = strip_tags($_POST[$field]);
+
+    $cpf = preg_replace('/[^0-9]/', '', $cpf);
+
+    if (strlen($cpf) > 11 || strlen($cpf) < 11) {
+        ValidationMessage::add($field, "O campo {$field} deve conter 11 caracteres.");
+
+        return false;
+    }
+
+    if (preg_match('/(\d)\1{10}/', $cpf)) {
+        ValidationMessage::add($field, "O campo {$field} não pode conter uma sequência de caracteres.");
+
+        return false;
+    }
+
+    for ($t = 9; $t < 11; ++$t) {
+        for ($d = 0, $c = 0; $c < $t; ++$c) {
+            $d += $cpf[$c] * (($t + 1) - $c);
+        }
+        $d = ((10 * $d) % 11) % 10;
+        if ($cpf[$c] != $d) {
+            ValidationMessage::add($field, "O campo {$field} não é válido.");
+
+            return false;
+        }
+    }
+
+    return true;
 }
 
 function unique($field, $param)
 {
     $data = strip_tags($_POST[$field]);
+
     $user = findBy($param, $field, $data);
 
     if ($user) {
-        setFlash($field, 'Esse valor já está cadastrado');
+        ValidationMessage::add($field, 'Esse valor já está cadastrado.');
 
         return false;
     }
@@ -79,7 +114,7 @@ function maxlen($field, $param)
     $data = strip_tags($_POST[$field]);
 
     if (strlen($data) > $param) {
-        setFlash($field, "Esse campo não pode passar de {$param} caracteres");
+        ValidationMessage::add($field, "Esse campo não pode passar de {$param} caracteres.");
 
         return false;
     }
@@ -100,17 +135,17 @@ function optional($field)
 
 function confirmed($field)
 {
-    if (!isset($_POST[$field], $_POST[$field . '_confirmation'])) {
-        setFlash($field, 'Os campos para atualizar a senha são obrigatórios');
+    if (!isset($_POST[$field], $_POST[$field.'_confirmation'])) {
+        ValidationMessage::add($field, 'Os campos para atualizar a senha são obrigatórios.');
 
         return false;
     }
 
     $value = strip_tags($_POST[$field]);
-    $value_confirmation = strip_tags($_POST[$field . '_confirmation']);
+    $value_confirmation = strip_tags($_POST[$field.'_confirmation']);
 
     if ($value !== $value_confirmation) {
-        setFlash($field, 'Os dois campos devem que ser iguais');
+        ValidationMessage::add($field, 'Os dois campos devem que ser iguais.');
 
         return false;
     }

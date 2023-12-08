@@ -1,16 +1,20 @@
 <?php
 
-namespace app\Controllers;
+namespace app\controllers;
 
+use app\helpers\FlashMessage;
+use app\helpers\Redirect;
 use stdClass;
 
-class Contact
+class ContactController extends BaseController
 {
     public function index()
     {
-        return ['view' => 'contact', 'data' => [
+        $dados = [
             'title' => 'Contact',
-        ]];
+        ];
+
+        $this->view($dados, 'contact');
     }
 
     public function store()
@@ -31,13 +35,13 @@ class Contact
             'email' => 'required|email',
             'subject' => 'required',
             'messagem' => 'required',
-        ], persistInputs:true, checkCsrf:true);
+        ], persistInputs: true, checkCsrf: true);
 
         if (!$validated) {
-            return redirect('/contact');
+            return Redirect::redirect('/contact');
         }
 
-        $sent = send([
+        $send = send([
             'fromName' => $validated['name'],
             'fromEmail' => $validated['email'],
             'toName' => $_ENV['TONAME'],
@@ -47,10 +51,14 @@ class Contact
             'template' => 'contact',
         ]);
 
-        if ($sent) {
-            return setMessageAndRedirect('success', 'Mensagem enviada com sucesso!', '/contact');
+        if ($send) {
+            FlashMessage::add('contact_success', 'Mensagem enviada com sucesso!');
+
+            return Redirect::redirect('/contact');
         }
 
-        return setMessageAndRedirect('error', "Error ao tentar enviar a mensagem, Tente enviar a la diretamente para o e-mail: {$_ENV['TOEMAIL']}.", '/contact');
+        FlashMessage::add('contact_error', "Error ao tentar enviar a mensagem, Tente enviar a la diretamente para o e-mail: {$_ENV['TOEMAIL']}.");
+
+        return Redirect::redirect('/contact');
     }
 }

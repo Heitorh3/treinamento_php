@@ -2,49 +2,30 @@
 
 require 'bootstrap.php';
 
+use app\controllers\HomeController;
+use app\controllers\LoginController;
+use app\controllers\UserController;
+use app\router\Router;
+
 try {
-    $data = router();
+    $router = new Router();
 
-    if (isAjax()) {
-        exit;
-    }
+    $admin = require base_path().'/app/routers/admin.php';
+    $router->group('/admin', $admin, Session::PROTECTED);
 
-    if (!isset($data['data'])) {
-        throw new Exception('O índice [data] está faltando');
-    }
+    $router->add('GET', '/login', [LoginController::class, 'index']);
+    $router->add('POST', '/login', [LoginController::class, 'store']);
+    $router->add('GET', '/logout', [LoginController::class, 'destroy']);
 
-    if (!isset($data['data']['title'])) {
-        throw new Exception('O índice [title] está ausente!');
-    }
+    $router->add('GET', '/', [HomeController::class, 'index', Session::PROTECTED]);
+    $router->add('POST', '/', [HomeController::class, 'show', Session::PROTECTED]);
 
-    if (!isset($data['view'])) {
-        throw new Exception('O índice [view] está ausente!');
-    }
+    $router->add('GET', '/user/edit/profile', [UserController::class, 'edit', Session::PROTECTED]);
+    $router->add('POST', '/user/{id:[0-9]+}/update', [UserController::class, 'update', Session::PROTECTED]);
+    $router->add('GET', '/users', [UserController::class, 'index', Session::PROTECTED]);
+    $router->add('GET', '/user/{id:[0-9]+}/show', [UserController::class, 'show', Session::PROTECTED]);
 
-    if (!file_exists(VIEWS.$data['view'].'.view.php')) {
-        throw new Exception("Essa view {$data['view']} não existe");
-    }
-
-    // Create new Plates instance
-    $templates = new League\Plates\Engine(VIEWS);
-
-    // Create a Twig  instance
-    // $loader = new \Twig\Loader\ArrayLoader([VIEWS]);
-    // $loader = new \Twig\Loader\FilesystemLoader('../app/views');
-
-    // $twig = new \Twig\Environment($loader);
-
-    // Render a template
-    echo $templates->render($data['view'].'.view', $data['data']);
-
-    // Render a template twig
-    // echo $twig->render($data['view'].'.view.php', $data['data']);
-
-    // extract( $data[ 'data' ] );
-
-    // $view = $data[ 'view' ].'.view.php';
-
-    // require VIEWS.'index.view.php';
+    $router->run();
 } catch (Throwable $e) {
     \Sentry\captureException($e);
 

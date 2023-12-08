@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/assets/css/bootstrap/5.3.2/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/assets/css/bootstrap/icons/1.11.2/bootstrap-icons.min.css">
+        <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+        {% block head %}{% endblock %}
+        <title>{% block title %}{% endblock %}</title>        
+    </head>
+    <body>
+        
+        <div id="header">                
+            {% include 'partials/header.html' %}                
+        </div>
+    
+        <div id="content" class="container mt-2">{% block content %}{% endblock %}</div>
+
+        <div id="footer">
+            {% block footer %}
+              <p class="copyright pull-right">
+                    &copy; {{ 'now' | date('Y') }} <a href="#">Asolucoesweb</a>, seu portal de treinamento web.
+                </p>
+            {% endblock %}
+        </div>
+                    
+        <script src="/app.js"></script>
+        <script src="/assets/js/bootstrap/5.3.2/bootstrap.bundle.min.js"></script>
+        
+    </body>
+</html>

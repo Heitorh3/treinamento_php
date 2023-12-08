@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Controllers;
+namespace app\controllers;
 
 class Login
 {
@@ -12,13 +12,13 @@ class Login
             'description' => 'This is the login page',
         ];
 
-        return [ 'view' => 'login', 'data' => $data ];
+        return ['view' => 'login', 'data' => $data];
     }
 
     public function store()
     {
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-        $password = htmlspecialchars($_POST[ 'password' ], ENT_QUOTES, 'UTF-8');
+        $password = htmlspecialchars($_POST['password'], ENT_QUOTES, 'UTF-8');
         // $password = filter_input( INPUT_POST, 'password', FILTER_UNSAFE_RAW );
 
         if (empty($password) || empty($email)) {
@@ -30,7 +30,7 @@ class Login
         tableJoin('photos', 'id', 'left');
         where('email', $email);
 
-        $user = execute(isFetchAll:false);
+        $user = execute(isFetchAll: false);
 
         if (!$user) {
             return setMessageAndRedirect('message', 'Usuário ou senha inválidos', '/login');
@@ -42,14 +42,14 @@ class Login
 
         unset($user->password);
 
-        $_SESSION[ LOGGED ] = $user;
+        $_SESSION[LOGGED] = $user;
 
         return redirect('/');
     }
 
     public function destroy()
     {
-        unset($_SESSION[ LOGGED ]);
+        unset($_SESSION[LOGGED]);
 
         return redirect('/');
     }

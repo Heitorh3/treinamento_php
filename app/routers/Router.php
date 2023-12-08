@@ -1,74 +1,90 @@
 <?php
 
-function exactMatchUriInArrayRoutes($uri, $routes)
+namespace app\router;
+
+use app\controllers\LoginController;
+use app\controllers\MethodNotAllowedController;
+use app\controllers\NotFoundController;
+use FastRoute\Dispatcher;
+use FastRoute\RouteCollector;
+
+use function FastRoute\simpleDispatcher;
+
+class Router
 {
-    return (array_key_exists($uri, $routes)) ? [$uri => $routes[$uri]] : [];
-}
+    private array $routes;
+    private array $group;
 
-function regularExpressionMatchArrayRoutes($uri, $routes)
-{
-    return array_filter(
-        $routes,
-        function ($value) use ($uri) {
-            $regex = str_replace('/', '\/', ltrim($value, '/'));
-
-            return preg_match("/^$regex$/", ltrim($uri, '/'));
-        },
-        ARRAY_FILTER_USE_KEY
-    );
-}
-
-function getParams($uri, $matchUri)
-{
-    if (!empty($matchUri)) {
-        $matchedToGetParams = array_keys($matchUri)[0];
-
-        return array_diff(
-            explode('/', ltrim($uri, '/')),
-            explode('/', ltrim($matchedToGetParams, '/'))
-        );
+    public function group(string $prefix, \Closure $callback)
+    {
+        $this->group[$prefix] = $callback;
     }
 
-    return [];
-}
-
-function formatParams($uri, $params)
-{
-    $uri = explode('/', ltrim($uri, '/'));
-    $paramsData = [];
-
-    foreach ($params as $index => $param) {
-        $paramsData[$uri[$index - 1]] = $param;
+    public function add(string $method, string $uri, array $controller)
+    {
+        $this->routes[] = [$method, $uri, $controller];
     }
 
-    return $paramsData;
-}
-
-function router()
-{
-    $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
-    $routes = require 'Routes.php';
-    $requestMethod = $_SERVER['REQUEST_METHOD'];
-
-    $matchUri = exactMatchUriInArrayRoutes($uri, $routes[$requestMethod]);
-
-    $params = [];
-
-    if (empty($matchUri)) {
-        $matchUri = regularExpressionMatchArrayRoutes($uri, $routes[$requestMethod]);
-
-        $params = getParams($uri, $matchUri);
-        $params = formatParams($uri, $params);
+    private function group_routes(RouteCollector $r)
+    {
+        foreach ($this->group as $prefix => $routes) {
+            $r->addGroup($prefix, function (RouteCollector $r) use ($routes) {
+                foreach ($routes() as $route) {
+                    $r->addRoute(...$route);
+                }
+            });
+        }
     }
 
-    if ($_ENV['MAINTENANCE'] === 'true') {
-        $matchUri = ['/maintenance' => 'Maintenance@index'];
+    public function run()
+    {
+        $dispatcher = simpleDispatcher(function (RouteCollector $r) {
+            if (!empty($this->group)) {
+                $this->group_routes($r);
+            }
+
+            foreach ($this->routes as $route) {
+                $r->addRoute(...$route);
+            }
+        });
+
+        $httpMethod = $_SERVER['REQUEST_METHOD'];
+        $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
+
+        if ($uri !== '/') {
+            $uri = rtrim($uri, '/');
+        }
+
+        $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
+
+        $this->handle($routeInfo);
     }
 
-    if (!empty($matchUri)) {
-        return loadController($matchUri, $params);
-    }
+    private function handle(array $routeInfo)
+    {
+        switch ($routeInfo[0]) {
+            case Dispatcher::NOT_FOUND:
+                call_user_func_array([new NotFoundController(), 'index'], []);
 
-    throw new Exception('No route defined for this URI.');
+                break;
+            case Dispatcher::METHOD_NOT_ALLOWED:
+                call_user_func_array([new MethodNotAllowedController(), 'index'], []);
+
+                break;
+            case Dispatcher::FOUND:
+                [,[$controller,$method], $vars] = $routeInfo;
+                if (isset($routeInfo[1][2])) {
+                    if ($routeInfo[1][2] === \Session::PROTECTED) {
+                        if (!\Session::logged()) {
+                            call_user_func_array([new LoginController(), 'index'], []);
+                            break;
+                        }
+                        call_user_func_array([new $controller(), $method], $vars);
+                        break;
+                    }
+                }
+                call_user_func_array([new $controller(), $method], $vars);
+                break;
+        }
+    }
 }

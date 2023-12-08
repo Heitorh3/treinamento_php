@@ -47,6 +47,18 @@ Docker run:
  docker run --name=server_mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=bwUh3DtN3e32ttya -e MYSQL_DATABASE=treinamentoPhp -d mariadb:10.0.27
 
 ```
+## 📬 Configurações de e-mail
+
+```
+$phpmailer = new PHPMailer();
+$phpmailer->isSMTP();
+$phpmailer->Host = 'sandbox.smtp.mailtrap.io';
+$phpmailer->SMTPAuth = true;
+$phpmailer->Port = 2525;
+$phpmailer->Username = '26f5f856e1e1f5';
+$phpmailer->Password = '24212ce233ee7e';
+
+```
 
 ## Comando SQL para criar a criação da tabela
 

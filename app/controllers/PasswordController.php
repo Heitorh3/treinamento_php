@@ -2,12 +2,15 @@
 
 namespace app\controllers;
 
-class Password
+use app\helpers\FlashMessage;
+use app\helpers\Redirect;
+
+class PasswordController extends BaseController
 {
     public function update($args)
     {
-        if (!isset($args['user']) || $args['user'] !== user()->id) {
-            return redirect('/');
+        if (!isset($args['user']) || $args['user'] !== \Session::user()->id) {
+            return Redirect::redirect('/');
         }
 
         $validated = validate([
@@ -16,15 +19,15 @@ class Password
         ], checkCsrf: true);
 
         if (!$validated) {
-            return redirect('/user/edit/profile');
+            return Redirect::redirect('/user/edit/profile');
         }
 
         $updated = update('users', [
             'password' => $validated['password'],
-        ], ['id' => user()->id]);
+        ], ['id' => \Session::user()->id]);
 
         if ($updated) {
-            $user = user();
+            $user = \Session::user();
             send([
                 'fromName' => $_ENV['TONAME'],
                 'fromEmail' => $_ENV['TOEMAIL'],
@@ -35,9 +38,13 @@ class Password
                 'template' => 'password',
             ]);
 
-            return setMessageAndRedirect('password_success', 'Senha alterada com sucesso!', '/user/edit/profile');
+            FlashMessage::add('password_success', 'Senha alterada com sucesso!');
+
+            return Redirect::redirect('/user/edit/profile');
         } else {
-            return setMessageAndRedirect('password_error', 'Ocorreu um erro ao atualizar a senha!', '/user/edit/profile');
+            FlashMessage::add('password_error', 'Ocorreu um erro ao atualizar a senha!');
+
+            return Redirect::redirect('/user/edit/profile');
         }
     }
 }

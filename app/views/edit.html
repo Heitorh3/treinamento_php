@@ -1,0 +1,85 @@
+{% extends "index.html" %}
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+
+<a class="navbar-brand" href="#">Editar usuário - {{ user().name }} </a>
+
+{{flash('updated_success') | raw}}
+{{flash('updated_error') | raw}}
+
+<h1 x-data="{ message: 'I ❤️ Alpine' }" x-text="message"></h1>
+
+<ul>
+    {% for key, error in validationFail() %}
+    <li>{{ key }}: {{error | raw}}</li>
+    {% endfor %}
+</ul>
+
+<form class="row g-3" method="post" action="/user/{{user().id}}/update">
+    {{ getCsfr() | raw}}    
+    <div class="col-md-6">
+        <label class="form-label" for="name">Nome:</label>
+        <input class="form-control" type="text" name="name" id="name" value="{{user().name}}" required/>
+        {{validation('name') | raw}}            
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label" for="cpf">CPF:</label>
+        <input x-data x-mask="999.999.999-99" placeholder="999.999.999-99" class="form-control cpf" type="text" name="cpf" id="cpf" value="{{user().cpf}}" required/>
+        {{validation('cpf') | raw}}
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label" for="email">Email:</label>
+        <input class="form-control" type="text" name="email" id="email" value="{{user().email}}" required/>
+        {{validation('email')| raw}}
+    </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Atualizar</button>
+    </div>    
+</form>
+
+{% if user().path %}
+    <img src="{{user().path}}" alt="{{user().name}}" class="rounded-circle" width="50" height="40">
+{% endif %}
+
+<hr>
+    {{flash('password_success') | raw}}
+    {{flash('password_error')| raw}}
+
+    <form class="row g-3" action="/password/user/{{user().id}}" method="post">
+        {{ getCsfr() | raw}}
+
+        <div class="col-md-3">
+            <label for="password">Password:</label>
+            <input type="text" name="password" id="password">
+            {{flash('password')}}
+        </div>
+
+        <div class="col-md-3">
+            <label for="password_confirmation">Password Confirmation:</label>
+            <input type="text" name="password_confirmation" id="password_confirmation">
+            {{flash('password_confirmation')}}
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Atualizar</button>
+        </div>  
+    </form>
+<hr>
+
+<form class="row g-3" action="/user/image/update" method="post" enctype="multipart/form-data">
+    <div class="col-md-3">
+        <div class="mb-3">
+            <input type="file" name="file" class="form-control" aria-label="Avatar" accept="image/gif, image/png, image/jpeg"
+                required>
+        </div>
+    </div>
+    
+    <div class="col-12">
+       <button type="submit" class="btn btn-primary">Alterar foto</button>
+    </div>    
+</form>
+{% endblock %}

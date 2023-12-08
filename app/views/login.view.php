@@ -1,10 +1,9 @@
-<?php $this->layout('index.view', [ 'title' => $title ]) ?>
+<?php $this->layout('index.view', ['title' => $title]); ?>
 
-<?php if (!logged()) : ?>
+<?php if (!Session::logged()) { ?>
 <h2>Login</h2>
 
-<?php echo getFlash('message');
-    ?>
+<?php echo getFlash('message'); ?>
 
 <form  action='/login' method='POST'>
   <div class='mb-3'>
@@ -21,7 +20,7 @@
   <button type='submit' class='btn btn-primary'>Submit</button>
 </form>
 
-<?php else: ?>
+<?php } else { ?>
   <h2>Você já esta logado no sistema.</h2>
-<?php endif;
+<?php }
 ?>

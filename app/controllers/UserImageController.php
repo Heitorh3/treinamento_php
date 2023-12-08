@@ -1,16 +1,18 @@
 <?php
 
-namespace app\Controllers;
+namespace app\controllers;
 
+use app\helpers\FlashMessage;
+use app\helpers\Redirect;
 use core\facades\UploadImage;
 
-class UserImage
+class UserImageController extends BaseController
 {
     public function store()
     {
         try {
             $image = new UploadImage();
-            $auth = user();
+            $auth = \Session::user();
 
             $image->make()
                 ->resize(400, null, true)
@@ -41,12 +43,18 @@ class UserImage
             if ($updatedUser) {
                 $auth->path = $info['path'];
 
-                return setMessageAndRedirect('success', 'Photo cadastrada com sucesso!', '/user/edit/profile');
+                FlashMessage::add('image_success', 'Photo cadastrada com sucesso!');
+
+                return Redirect::redirect('/user/edit/profile');
             }
 
-            return setMessageAndRedirect('error', 'Problema ao cadastrar a sua foto!', '/user/edit/profile');
+            FlashMessage::add('image_error', 'Problema ao cadastrar a sua foto!');
+
+            return Redirect::redirect('/user/edit/profile');
         } catch (\Exception $e) {
-            return setMessageAndRedirect('error', $e->getMessage(), '/user/edit/profile');
+            FlashMessage::add('image_error', $e->getMessage());
+
+            return Redirect::redirect('/user/edit/profile');
         }
     }
 }

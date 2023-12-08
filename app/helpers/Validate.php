@@ -3,7 +3,7 @@
 function validate(array $validations, bool $persistInputs = false, bool $checkCsrf = false)
 {
     if ($checkCsrf) {
-        checkCsrf();
+        Session::checkCsrf();
     }
 
     $result = [];

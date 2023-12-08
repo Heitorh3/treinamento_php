@@ -1,0 +1,22 @@
+{% extends "index.html" %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+  <span>Show - {{user.name}}</span>
+    <ul>
+      <li>
+        <a href='/user/{{user.id}}/delete' class="delete-button">
+            {{user.id}}
+        </a>
+      </li>
+      <li>
+        <a href='/user/{{user.id}}/show'>    
+          {{user.name}}
+        </a>
+      </li>
+      <li>
+        {{user.email}}
+      </li>
+  </ul>
+{% endblock %}

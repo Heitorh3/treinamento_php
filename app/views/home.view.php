@@ -2,8 +2,8 @@
 
 <h2>Users</h2>
 
-<?php echo getFlash('success', 'background-color:green;color:white'); ?>
-<?php echo getFlash('error', 'background-color:red;color:white'); ?>
+{{ flash('success') | raw }}
+{{ flash('error') | raw }}
 
 <form method="get" action="/">
     <input type="text" name="search" placeholder="Digite o nome que deseja buscar...">
