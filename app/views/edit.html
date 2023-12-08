@@ -5,16 +5,16 @@
 
 <a class="navbar-brand" href="#">Editar usuário - {{ user().name }} </a>
 
-{{flash('updated_success') | raw}}
-{{flash('updated_error') | raw}}
+<div class="mt-3">
+    {{flash('updated_success') | raw}}
+    {{flash('updated_error') | raw}}
+</div>
 
-<h1 x-data="{ message: 'I ❤️ Alpine' }" x-text="message"></h1>
-
-<ul>
+<div class="mt-3">
     {% for key, error in validationFail() %}
-    <li>{{ key }}: {{error | raw}}</li>
+        {{error | raw}}</li>
     {% endfor %}
-</ul>
+</div>
 
 <form class="row g-3" method="post" action="/user/{{user().id}}/update">
     {{ getCsfr() | raw}}    
@@ -41,27 +41,19 @@
     </div>    
 </form>
 
-{% if user().path %}
-    <img src="{{user().path}}" alt="{{user().name}}" class="rounded-circle" width="50" height="40">
-{% endif %}
-
 <hr>
-    {{flash('password_success') | raw}}
-    {{flash('password_error')| raw}}
 
-    <form class="row g-3" action="/password/user/{{user().id}}" method="post">
-        {{ getCsfr() | raw}}
-
+    <form class="row g-3" action="/password/user/{{user().id}}" method="post">       
         <div class="col-md-3">
-            <label for="password">Password:</label>
-            <input type="text" name="password" id="password">
-            {{flash('password')}}
+            <label class="form-label" for="password">Password:</label>
+            <input class="form-control" type="password" name="password" id="password" required>
+            {{validation('password')}}
         </div>
 
         <div class="col-md-3">
-            <label for="password_confirmation">Password Confirmation:</label>
-            <input type="text" name="password_confirmation" id="password_confirmation">
-            {{flash('password_confirmation')}}
+            <label class="form-label" for="password_confirmation">Password Confirmation:</label>
+            <input class="form-control" type="password" name="password_confirmation" id="password_confirmation" required>
+            {{validation('password_confirmation')}}
         </div>
 
         <div class="col-12">
@@ -71,15 +63,47 @@
 <hr>
 
 <form class="row g-3" action="/user/image/update" method="post" enctype="multipart/form-data">
-    <div class="col-md-3">
-        <div class="mb-3">
-            <input type="file" name="file" class="form-control" aria-label="Avatar" accept="image/gif, image/png, image/jpeg"
-                required>
+    <div x-data="previewImage()">
+        <div class="mb-2">
+            <template x-if="imageUrl">
+                <img :src="imageUrl" class="object-cover rounded border border-gray-200" style="width: 100px; height: 100px;">
+            </template>
+
+            <template x-if="!imageUrl">
+                <div class="border rounded border-gray-200 bg-gray-100" style="width: 100px; height: 100px;"></div>
+            </template>
         </div>
-    </div>
+        <div class="col-md-3">
+            <div class="mb-3">
+                <input type="file" name="file" class="form-control" aria-label="Avatar" accept="image/gif, image/png, image/jpeg"
+                   @change="fileChosen" required>
+            </div>
+        </div>
     
-    <div class="col-12">
-       <button type="submit" class="btn btn-primary">Alterar foto</button>
-    </div>    
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Alterar foto</button>
+        </div>  
+    </div>
 </form>
+<script>
+    function previewImage() {
+        return {
+            imageUrl: "",
+
+            fileChosen(event) {
+                this.fileToDataUrl(event, (src) => (this.imageUrl = src));
+            },
+
+            fileToDataUrl(event, callback) {
+                if (!event.target.files.length) return;
+
+                let file = event.target.files[0],
+                    reader = new FileReader();
+
+                reader.readAsDataURL(file);
+                reader.onload = (e) => callback(e.target.result);
+            },
+        };
+    }
+</script>
 {% endblock %}

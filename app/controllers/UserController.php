@@ -48,7 +48,7 @@ class UserController extends BaseController
 
         $validate['password'] = password_hash($validate['password'], PASSWORD_DEFAULT);
 
-        // $validate['cpf'] = mascara_cpf($validate['cpf']);
+        $validate['cpf'] = mascara_cpf($validate['cpf']);
 
         $created = create('users', $validate);
 
@@ -91,7 +91,7 @@ class UserController extends BaseController
 
         $validated = validate([
             'name' => 'required',
-            'cpf' => 'required|unique:users',
+            'cpf' => 'required|cpf',
             'email' => 'required|email|uniqueUpdate:users,id='.$id,
         ]);
 
@@ -99,7 +99,8 @@ class UserController extends BaseController
             return Redirect::redirect('/user/edit/profile');
         }
 
-        // $validated['cpf'] = mascara_cpf($validated['cpf']);
+        $validated['cpf'] = mascara_cpf($validated['cpf']);
+        $validated['updated_At'] = date('Y-m-d H:i:s');
 
         $updated = update('users', $validated, ['id' => \Session::user()->id]);
 
@@ -108,7 +109,7 @@ class UserController extends BaseController
 
             return Redirect::redirect('/user/edit/profile');
         }
-        FlashMessage::add('updated_error', 'Ocorreu um erro ao atualizar!');
+        FlashMessage::add('updated_error', 'Ocorreu um erro ao atualizar o registro!');
 
         return Redirect::redirect('/user/edit/profile');
     }

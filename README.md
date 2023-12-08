@@ -65,7 +65,7 @@ $phpmailer->Password = '24212ce233ee7e';
 ```
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
+  `name` text NOT NULL,
   `email` varchar(45) NOT NULL UNIQUE,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 0 DEFAULT CHARSET = utf8;
@@ -89,4 +89,8 @@ ALTER TABLE users ADD `cpf` VARCHAR(15) NOT NULL UNIQUE AFTER `name`;
 
 ALTER TABLE users 
 ADD CONSTRAINT UC_Users UNIQUE (id,cpf);
+
+
+ALTER TABLE users ADD `created_At` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `password`;
+ALTER TABLE users ADD `updated_At` TIMESTAMP DEFAULT null AFTER `password`;
 ```

@@ -91,7 +91,7 @@ function cpf($field)
         }
     }
 
-    return true;
+    return $cpf;
 }
 
 function unique($field, $param)
