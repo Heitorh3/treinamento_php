@@ -7,15 +7,15 @@ use app\helpers\Redirect;
 
 class PasswordController extends BaseController
 {
-    public function update($args)
+    public function update($id)
     {
-        if (!isset($args['user']) || $args['user'] !== \Session::user()->id) {
+        if (!isset($id) || intval($id) !== \Session::user()->id) {
             return Redirect::redirect('/');
         }
 
         $validated = validate([
-            'email' => 'required|confirmed',
-            'email_confirmation' => 'required',
+            'password' => 'required|minlen:5|confirmed',
+            'password_confirmation' => 'required',
         ], checkCsrf: true);
 
         if (!$validated) {
@@ -38,7 +38,7 @@ class PasswordController extends BaseController
                 'template' => 'password',
             ]);
 
-            FlashMessage::add('password_success', 'Senha alterada com sucesso!');
+            FlashMessage::add('password_success', 'Senha alterada com sucesso!', 'success');
 
             return Redirect::redirect('/user/edit/profile');
         } else {

@@ -122,6 +122,19 @@ function maxlen($field, $param)
     return $data;
 }
 
+function minlen($field, $param)
+{
+    $data = strip_tags($_POST[$field]);
+
+    if (strlen($data) < $param) {
+        ValidationMessage::add($field, "Esse campo não pode ser inferior a {$param} caracteres.");
+
+        return false;
+    }
+
+    return $data;
+}
+
 function optional($field)
 {
     $data = strip_tags($_POST[$field]);

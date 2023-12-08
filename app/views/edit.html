@@ -42,7 +42,13 @@
 
 <hr>
 
-    <form class="row g-3" action="/password/user/{{user().id}}" method="post">       
+    <div class="mt-3">
+        {{flash('password_success') | raw}}
+        {{flash('password_error') | raw}}
+    </div>
+    <form class="row g-3" action="/password/user/{{user().id}}" method="post">  
+
+        {{ getCsfr() | raw}}
         <div class="col-md-3">
             <label class="form-label" for="password">Password:</label>
             <input class="form-control" type="password" name="password" id="password" required>
@@ -61,7 +67,7 @@
     </form>
 <hr>
 
-<form class="row g-3" action="/user/image/update" method="post" enctype="multipart/form-data">    
+<form class="row g-3" action="/user/image/update" method="post" enctype="multipart/form-data">     
     <label class="mb-2" for="avatar">
        
         {% if user().path %}

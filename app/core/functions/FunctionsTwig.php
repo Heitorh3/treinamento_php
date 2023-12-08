@@ -66,7 +66,7 @@ class FunctionsTwig
         $this->functions['getCsfr'] = new TwigFunction('getCsfr', function () {
             $_SESSION['csrf'] = bin2hex(openssl_random_pseudo_bytes(8));
 
-            return "<input name='csrf' type='hidden' id='__token' value=".$_SESSION['csrf'].'>';
+            return "<input name='csrf' type='hidden' value=".$_SESSION['csrf'].'>';
         });
 
         return $this;

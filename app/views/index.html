@@ -9,14 +9,14 @@
         <link rel="stylesheet" href="/assets/css/bootstrap/icons/1.11.2/bootstrap-icons.min.css">
         <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
         {% block head %}{% endblock %}
-        <title>{% block title %}{% endblock %}</title>        
+        <title>{% block title %}{% endblock %}</title>     
     </head>
     <body>
         
         <div id="header">                
             {% include 'partials/header.html' %}                
         </div>
-        {{ getCsfr() | raw}}
+        
         <div id="content" class="container mt-2">{% block content %}{% endblock %}</div>
 
         <div id="footer">
