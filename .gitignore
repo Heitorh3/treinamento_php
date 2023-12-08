@@ -1,6 +1,8 @@
 vendor/
 node_modules/
 mysql/data/
+nginx/logs/access.log
+nginx/logs/error.log
 composer.lock
 yarn.lock
 .env  
