@@ -27,10 +27,15 @@ class UserImageController extends BaseController
             $photoUser = execute(isFetchAll: false);
 
             if ($photoUser) {
+                $updated_At = date('Y-m-d H:i:s');
+                $id = $photoUser->id;
                 $updatedUser = update(
                     'photos',
-                    ['path' => $info['path']],
-                    ['userId' => $photoUser->id]
+                    [
+                        'path' => $info['path'],
+                        'updated_At' => $updated_At,
+                    ],
+                    ['userId' => $id]
                 );
                 remove_file($photoUser->path);
             } else {
@@ -43,7 +48,7 @@ class UserImageController extends BaseController
             if ($updatedUser) {
                 $auth->path = $info['path'];
 
-                FlashMessage::add('image_success', 'Photo cadastrada com sucesso!');
+                FlashMessage::add('image_success', 'Photo cadastrada com sucesso!', 'success');
 
                 return Redirect::redirect('/user/edit/profile');
             }

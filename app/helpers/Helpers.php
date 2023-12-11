@@ -39,5 +39,5 @@ function public_path()
 
 function remove_file(string $file)
 {
-    @unlink(public_path().$file);
+    @unlink($file);
 }

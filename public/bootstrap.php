@@ -1,11 +1,11 @@
 <?php
 
-// session_start();
-
 use app\classes\bind;
 use app\core\functions\AddFunctionsTwig;
 use app\core\functions\FunctionsTwig;
 use app\core\Template;
+use Predis\Autoloader;
+use Predis\Client;
 
 require '../vendor/autoload.php';
 
@@ -20,14 +20,24 @@ date_default_timezone_set('America/Sao_Paulo');
 $template = new Template();
 $twig = $template->init();
 
-// funcoes criadas para usar no template
+// Funcoes criadas para usar no template
 $functionsTwig = new FunctionsTwig();
 $functionsTwig->run();
 
-// adicionando as funcoes para funcionar no template
+// Adicionando as funções para funcionar no template
 $addFunctionsTwig = new AddFunctionsTwig();
 $addFunctionsTwig->run($twig, $functionsTwig);
 
+// Conexão com redis
+Autoloader::register();
+$client = new Client([
+    'scheme' => 'tcp',
+    'host' => 'server_cache',
+    'port' => 6379,
+]);
+
 // Metodos vindos do baseController estendido em cada controller
 Bind::bind('twig', $twig);
+Bind::bind('cache', $client);
+
 Sentry\init(['dsn' => SENTRY_DSN]);

@@ -66,6 +66,18 @@ services:
     command: mysqld --default-authentication-plugin=caching_sha2_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci #command: --disable-partition-engine-check
     networks:
       - phpnet
+
+  ## Cache
+  cache:
+    container_name: server_cache
+    image: redis
+    ports:
+      - 6379:6379
+    networks:
+      - phpnet
+    # volumes:
+    #   - redis/data:/data    
+
 networks:
   phpnet:
     driver: bridge

@@ -61,6 +61,7 @@ class ComposerStaticInit2aa8c87b271eece91dd3eaeac38fdd89
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
             'Psr\\Container\\' => 14,
+            'Predis\\' => 7,
             'PhpOption\\' => 10,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
@@ -167,6 +168,10 @@ class ComposerStaticInit2aa8c87b271eece91dd3eaeac38fdd89
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'Predis\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/predis/predis/src',
         ),
         'PhpOption\\' => 
         array (

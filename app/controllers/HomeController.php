@@ -2,19 +2,35 @@
 
 namespace app\controllers;
 
+use app\classes\Redis;
+
 class HomeController extends BaseController
 {
+    public const TIME = '+1day';
+
     public function index()
     {
-        read('users');
-        paginate(2);
+        $cache = new Redis($this->getCache());
 
-        $users = execute();
+        read('users');
+        paginate(DEFAULT_PAGINATE);
+
+        if ($cache->toExpire('users') === -2 || $cache->toExpire('users') === -1) {
+            $users = execute();
+
+            $cache->set('users', json_encode(
+                $users
+            ));
+
+            $cache->expire('users', 10);
+        } else {
+            $users = json_decode($cache->get('users'));
+        }
 
         $data = [
-            'title' => 'Home',
-            'links' => render(),
-            'users' => $users,
+         'title' => 'Home',
+         'links' => render(),
+         'users' => $users,
         ];
 
         $this->view($data, 'home');
@@ -30,7 +46,7 @@ class HomeController extends BaseController
             search(['Name' => $search]);
         }
 
-        paginate(2);
+        paginate(DEFAULT_PAGINATE);
 
         $users = execute();
 

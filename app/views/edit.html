@@ -67,9 +67,12 @@
     </form>
 <hr>
 
+<div class="mt-3">
+    {{flash('image_success') | raw}}
+    {{flash('image_error') | raw}}
+</div>
 <form class="row g-3" action="/user/image/update" method="post" enctype="multipart/form-data">     
-    <label class="mb-2" for="avatar">
-       
+    <label class="mb-2" for="avatar">       
         {% if user().path %}
             <img src="{{user().path}}" id="image" class="img-fluid rounded-circle" 
                 width="100px" height="100px">
