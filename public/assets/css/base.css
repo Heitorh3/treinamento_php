@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+
+  /* background: var(--background, #030712); */
+}
+#app {
+  padding: calc(4.5rem + 5vh) 5rem 0;
+  width: 100%;
+  height: 100vh;
+
+  flex-direction: column;
+}
+.invalid-field {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: .875em;
+  color: var(--bs-form-invalid-color);
+}

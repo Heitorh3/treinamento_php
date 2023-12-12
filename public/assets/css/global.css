@@ -12,7 +12,19 @@
   outline: 0;
 }
 body {
-  font: 14px, 'Poppins', sans-serif;
+  font-family: Poppins, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font: 14px;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
 }
 button:focus {
   outline: none;
@@ -37,9 +49,3 @@ ul {
 button {
   cursor: pointer;
 } 
-.invalid-field {
-  width: 100%;
-  margin-top: 0.25rem;
-  font-size: .875em;
-  color: var(--bs-form-invalid-color);
-}

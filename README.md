@@ -59,7 +59,9 @@ $phpmailer->Username = '26f5f856e1e1f5';
 $phpmailer->Password = '24212ce233ee7e';
 
 ```
-Fonte dos icones: https://fonts.google.com/icons?selected=Material+Icons:search:&icon.query=search
+Fonte dos icones: 
+  https://phosphoricons.com/
+  https://github.com/phosphor-icons/web
 
 ## Comando SQL para criar a criação da tabela
 

@@ -20,52 +20,49 @@
       <input class="form-control" type="text" name="search" id="search" placeholder="Digite o nome que deseja buscar...">
       <div class="input-group-append"  aria-describedby="search">
         <button class="btn btn-outline-secondary" type="submit">
-          <span class="material-icons md-18">
-            manage_search
-          </span>
+          <i class="ph ph-magnifying-glass"></i>
         </button>
       </div>
     </div>
   </form>
 
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Photo</th>
-        <th scope="col">Name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Ação</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for user in users.rows %}      
-      <tr>
-        <th scope="row">{{ user.id }}</th>
-        <th>
-          {% if user.path %}
-            <img src="{{user.path}}" alt="{{user.name}}" class="img-fluid rounded-circle" width="30" height="30">
-          {% else %}
-            <img src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
-              id="image" class="img-fluid rounded-circle" style="width: 30px; height: 30px;">          
-          {% endif %}
-        </th>
-        <td>{{ user.name }}</td>
-        <td>{{ user.email }}</td>
-        <td>
-         <a href='user/{{user.id}}/show'>
-          <span class="material-icons">
-            drive_file_rename_outline
-          </span>
-         </a>     
-        <a href='/user/{{user.id}}/delete' class="delete-button">
-          <span class="material-icons">
-            delete_outline
-          </span>
-        </a>
-        </td>       
-      </tr>     
-      {% endfor %}  
-  </table>  
+  <div class="table-responsive">
+    <table class="table table-sm table-hover table-striped">
+      <caption>Listagem de usuários</caption>
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Photo</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Ação</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users.rows %}      
+        <tr>
+          <th scope="row">{{ user.id }}</th>
+          <th>
+            {% if user.path %}
+              <img src="{{user.path}}" alt="{{user.name}}" class="img-fluid rounded-circle" width="30" height="30">
+            {% else %}
+              <img src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
+                id="image" class="img-fluid rounded-circle" style="width: 30px; height: 30px;">          
+            {% endif %}
+          </th>
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+          <a href='user/{{user.id}}/show'>
+              <i class="ph ph-pencil-simple"></i>
+          </a>     
+          <a href='/user/{{user.id}}/delete' class="delete-button">
+              <i class="ph ph-trash"></i>
+          </a>
+          </td>       
+        </tr>     
+        {% endfor %}  
+    </table>  
+  </div>
   {{links | raw}}
 {% endblock %}

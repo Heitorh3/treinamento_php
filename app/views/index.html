@@ -7,31 +7,31 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="/assets/css/bootstrap/5.3.2/bootstrap.min.css" rel="stylesheet">        
         
-        <!-- Bootstrap -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="/assets/css/bootsrap-icons-styles.css" rel="stylesheet">
-        
-        <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+        <link href="/assets/css/hosphoricons-icons-styles.css" rel="stylesheet">        
+        <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+        <link rel="stylesheet" type="text/css" href="/assets/css/global.css">
+        <link rel="stylesheet" type="text/css" href="/assets/css/base.css">
         {% block head %}{% endblock %}
         <title>{% block title %}{% endblock %}</title>     
     </head>
     <body>
-        
-        <div id="header">                
-            {% include 'partials/header.html' %}                
-        </div>
-        
-        <div id="content" class="container mt-2">{% block content %}{% endblock %}</div>
+        <div id="app">
+            <div id="header">                
+                {% include 'partials/header.html' %}                
+            </div>
+            
+            <div id="content" class="container mt-2">{% block content %}{% endblock %}</div>
 
-        <div id="footer">
-            {% block footer %}
-              <p class="copyright pull-right">
+            <div id="footer">
+                {% block footer %}
+                <p class="copyright pull-right">
                     &copy; {{ 'now' | date('Y') }} <a href="#">Asolucoesweb</a>, seu portal de treinamento web.
                 </p>
-            {% endblock %}
-        </div>
-                    
+                {% endblock %}
+            </div>
+        </div>        
         <script src="/app.js"></script>
-        <script src="/assets/js/bootstrap/5.3.2/bootstrap.bundle.min.js"></script>        
+        <!--<script src="/assets/js/bootstrap/5.3.2/bootstrap.bundle.min.js"></script> -->
     </body>
 </html>
