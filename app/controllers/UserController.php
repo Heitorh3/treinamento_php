@@ -9,7 +9,6 @@ class UserController extends BaseController
 {
     public function index()
     {
-        exit;
         $data = [
             'title' => 'Cadastro de usuários',
         ];

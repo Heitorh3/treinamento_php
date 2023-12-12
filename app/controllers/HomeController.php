@@ -6,8 +6,6 @@ use app\classes\Redis;
 
 class HomeController extends BaseController
 {
-    public const TIME = '+1day';
-
     public function index()
     {
         $cache = new Redis($this->getCache());
@@ -16,13 +14,13 @@ class HomeController extends BaseController
         paginate(DEFAULT_PAGINATE);
 
         if ($cache->toExpire('users') === -2 || $cache->toExpire('users') === -1) {
-            $users = execute();
+            // $users = execute();
 
-            $cache->set('users', json_encode(
-                $users
-            ));
+            // $cache->set('users', json_encode(
+            //     $users
+            // ));
 
-            $cache->expire('users', 10);
+            $cache->expire('users', self::TIME);
         } else {
             $users = json_decode($cache->get('users'));
         }

@@ -9,4 +9,6 @@ abstract class BaseController
 {
     use View;
     use Cache;
+
+    public const TIME = '+1day';
 }

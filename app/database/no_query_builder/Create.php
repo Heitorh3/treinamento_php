@@ -3,9 +3,7 @@
 function create(string $table, array $data)
 {
     try {
-        if ($_SESSION['old']) {
-            unset($_SESSION['old']);
-        }
+        Session::old();
 
         if (!arrayIsAssociative($data)) {
             throw new Exception('O array tem que ser associativo no create');

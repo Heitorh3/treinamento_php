@@ -2,6 +2,9 @@
 
 namespace app\controllers;
 
+use app\helpers\FlashMessage;
+use app\helpers\Redirect;
+
 class Login
 {
     public function index()
@@ -22,7 +25,10 @@ class Login
         // $password = filter_input( INPUT_POST, 'password', FILTER_UNSAFE_RAW );
 
         if (empty($password) || empty($email)) {
-            return setMessageAndRedirect('message', 'Usuário ou senha inválidos', '/login');
+            FlashMessage::add('login', 'Usuário ou senha inválidos');
+
+            return Redirect::redirect('/login');
+            // return setMessageAndRedirect('message', 'Usuário ou senha inválidos', '/login');
         }
 
         // $user = findBy( 'users', 'email', $email );
@@ -33,24 +39,28 @@ class Login
         $user = execute(isFetchAll: false);
 
         if (!$user) {
-            return setMessageAndRedirect('message', 'Usuário ou senha inválidos', '/login');
+            FlashMessage::add('login', 'Usuário ou senha inválidos');
+
+            return Redirect::redirect('/login');
         }
 
         if (!password_verify($password, $user->password)) {
-            return setMessageAndRedirect('message', 'Usuário ou senha inválidos', '/login');
+            FlashMessage::add('login', 'Usuário ou senha inválidos');
+
+            return Redirect::redirect('/login');
         }
 
         unset($user->password);
 
         $_SESSION[LOGGED] = $user;
 
-        return redirect('/');
+        return Redirect::redirect('/');
     }
 
     public function destroy()
     {
         unset($_SESSION[LOGGED]);
 
-        return redirect('/');
+        Redirect::redirect('/');
     }
 }

@@ -11,6 +11,16 @@ class Session
         }
     }
 
+    public static function old()
+    {
+        // if ($_SESSION['old']) {
+        //     unset($_SESSION['old']);
+        // }
+        if (isset($_SESSION['old'])) {
+            unset($_SESSION['old']);
+        }
+    }
+
     public static function user()
     {
         if (isset($_SESSION[LOGGED])) {

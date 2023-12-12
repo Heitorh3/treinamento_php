@@ -27,15 +27,13 @@ class UserImageController extends BaseController
             $photoUser = execute(isFetchAll: false);
 
             if ($photoUser) {
-                $updated_At = date('Y-m-d H:i:s');
-                $id = $photoUser->id;
                 $updatedUser = update(
                     'photos',
                     [
                         'path' => $info['path'],
-                        'updated_At' => $updated_At,
+                        'updated_At' => date('Y-m-d H:i:s'),
                     ],
-                    ['userId' => $id]
+                    ['userId' => $photoUser->userId]
                 );
                 remove_file($photoUser->path);
             } else {

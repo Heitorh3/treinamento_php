@@ -55,7 +55,7 @@ services:
       context: ./mysql
       dockerfile: Dockerfile
     volumes:
-      - ${DATABASE_VOLUME}:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
     ports:
       - "${DATABASE_PORT}:3306"
     environment:
@@ -75,8 +75,24 @@ services:
       - 6379:6379
     networks:
       - phpnet
-    # volumes:
-    #   - redis/data:/data    
+    volumes:
+      - cache_data:/data    
+
+volumes:
+  cache_data:         
+    name: ${CACHE_DATABASE_VOLUME_NAME}
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: redis/data
+  mysql_data:    
+    name: ${DATABASE_VOLUME_NAME}
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: mysql/data
 
 networks:
   phpnet:
