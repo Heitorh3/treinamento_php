@@ -10,15 +10,17 @@ class HomeController extends BaseController
     {
         $cache = new Redis($this->getCache());
 
-        read('users');
+        // read('users');
+        read('users', 'users.id, name, email, password, path');
+        tableJoin('photos', 'id', 'left');
         paginate(DEFAULT_PAGINATE);
 
         if ($cache->toExpire('users') === -2 || $cache->toExpire('users') === -1) {
-            // $users = execute();
+            $users = execute();
 
-            // $cache->set('users', json_encode(
-            //     $users
-            // ));
+            $cache->set('users', json_encode(
+                $users
+            ));
 
             $cache->expire('users', self::TIME);
         } else {
